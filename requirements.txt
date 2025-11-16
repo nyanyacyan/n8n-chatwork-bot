@@ -1,0 +1,11 @@
+requests
+beautifulsoup4
+lxml
+openai>=1.0.0
+orjson
+python-dateutil
+pytz
+loguru
+pandas
+tqdm
+
