@@ -40,6 +40,7 @@ class Logger:
         self.logger = logging.getLogger(__name__)
 
         self.debugMode = debugMode
+        self.logging_level = debugMode
 
         # インスタンス
         self.currentDate = datetime.now().strftime('%y%m%d')
@@ -166,6 +167,7 @@ class SimpleLogger:
         self.logger = logging.getLogger(__name__)
 
         self.debugMode = debugMode
+        self.logging_level = debugMode
 
         # インスタンス
         self.currentDate = datetime.now().strftime('%y%m%d')
