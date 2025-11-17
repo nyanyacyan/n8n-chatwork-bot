@@ -1,6 +1,8 @@
 version: "3.8"
 
+
 services:
+  #? 実行Command: docker-compose up n8n
   n8n:
     image: n8nio/n8n:latest
     ports:
@@ -10,9 +12,10 @@ services:
     environment:
       - TZ=Asia/Tokyo
 
-  python-dev:
-    image: python:3.10-slim
+  #? 実行Command: docker compose run --rm python-app
+  python-app:
+    build: ./python-app
     working_dir: /app
     volumes:
-      - ./python:/app
+      - ./python-app:/app
     command: ["/bin/bash"]

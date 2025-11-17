@@ -1,0 +1,17 @@
+# ベースイメージとしてPython 3.10のスリム版を使用
+# Linuxの軽量イメージであるため、イメージサイズを小さく保つことができる
+FROM python:3.10-slim
+
+# 作業ディレクトリを設定
+WORKDIR /app
+
+COPY requirements.txt .
+
+# イメージサイズが命なのでなるべくイメージサイズを抑えるためにキャッシュを残さないようにする
+RUN pip install --no-cache-dir -r requirements.txt
+
+# python-appディレクトリ内の全てのファイルをコンテナ内の作業ディレクトリにコピー
+COPY . .
+
+# ターミナルが待機状態になるようにしているCommand
+CMD ["/bin/bash"]
