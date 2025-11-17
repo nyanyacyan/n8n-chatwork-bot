@@ -61,7 +61,7 @@ class ReadConfig:
         try:
             with open(config_path, 'r', encoding='utf-8') as config_file:
                 config = json.load(config_file)
-                self.logger.info("Configuration loaded successfully.")
+                self.logger.debug(f"configファイルの読み込み成功: {config_path}")
                 return config
 
         except FileNotFoundError as e:
