@@ -1,3 +1,5 @@
+#* 実施Command: docker compose run --rm python-app
+
 # ベースイメージとしてPython 3.10のスリム版を使用
 # Linuxの軽量イメージであるため、イメージサイズを小さく保つことができる
 FROM python:3.10-slim
