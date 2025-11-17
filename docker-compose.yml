@@ -1,31 +1,18 @@
-version: '3'
+version: "3.8"
 
 services:
   n8n:
-    image: n8nio/n8n
-
-    # ここは外部公開するポート
-    # 今回はChatwork連携ように仕様
-
-    # ここにアクセスするとn8nのUIにアクセスできてフローを作成できる
+    image: n8nio/n8n:latest
     ports:
       - "5678:5678"
-
-    # n8n用の永続データをホスト側のホームディレクトリに保存
     volumes:
       - ~/.n8n:/home/node/.n8n
-
-
-    # n8n の基本設定（環境変数）
     environment:
-      - N8N_HOST=localhost
-      - N8N_PORT=5678
+      - TZ=Asia/Tokyo
 
-    # 自動再起動（落ちても勝手に復活）
-    restart: unless-stopped
-
-  python-service:
-    build: ./python-service
-    container_name: python-chatwork-bot
-    ports:
-      - "8000:8000"
+  python-dev:
+    image: python:3.10-slim
+    working_dir: /app
+    volumes:
+      - ./python:/app
+    command: ["/bin/bash"]
