@@ -7,10 +7,6 @@
 import logging, os, pathlib, shutil
 from datetime import datetime
 
-# 自作モジュール
-from ..const_str import FileName
-
-
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$%$$$$$$$$$$$$$$$$$$$
 # **********************************************************************************
 
@@ -120,45 +116,35 @@ class Logger:
 
 # ----------------------------------------------------------------------------------
 
-
     def getLogger(self):
         return self.logger
-
 
 # ----------------------------------------------------------------------------------
 # logsFileを取得
 
-    def toLogsPath(self, levelsUp: int = 5, dirName: str = 'resultOutput', subDirName: str = 'logs'):
+    def toLogsPath(self, levelsUp: int = 3, dirName: str = 'data', subDirName: str = 'logs'):
         resultOutputPath = self.getResultOutputPath(levelsUp=levelsUp, dirName=dirName)
 
         logsPath = resultOutputPath / subDirName / self.currentDate
 
         self.isDirectoryExists(path=logsPath)
-        # self.logger.debug(f"logsPath: {logsPath}")
-
         return logsPath
 
-
 # ----------------------------------------------------------------------------------
-
 
     @property
     def currentDir(self):
         currentDirPath = pathlib.Path(__file__).resolve()
         return currentDirPath
 
-
 # ----------------------------------------------------------------------------------
 
-
-    def getResultOutputPath(self, levelsUp: int = 4, dirName: str = 'resultOutput'):
+    def getResultOutputPath(self, levelsUp: int = 3, dirName: str = 'output'):
         currentDirPath = self.currentDir
 
         # スタートが0で1つ上の階層にするため→levelsUpに１をいれたら１個上の階層にするため
-        resultOutputPath = currentDirPath.parents[levelsUp - 1] / dirName
-        # self.logger.debug(f"{dirName}: {resultOutputPath}")
+        resultOutputPath = currentDirPath.parents[levelsUp - 1] / "data" / dirName
         return resultOutputPath
-
 
 # ----------------------------------------------------------------------------------
 # # ディレクトリがない可能性の箇所に貼る関数
