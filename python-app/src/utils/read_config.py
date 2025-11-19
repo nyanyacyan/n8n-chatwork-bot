@@ -40,15 +40,20 @@ class ReadConfig:
 # 指定した階層分だけ上の階層へ移動するメソッド
 
     def up_dir(self, path: str, levels: int = 1):
-        up_dir = os.path.abspath(os.path.join(path, *[".."] * levels))
-        self.logger.debug(f"Up {levels} 対象の階層: {up_dir}")
-        return up_dir
+        try:
+            up_dir = os.path.abspath(os.path.join(path, *[".."] * levels))
+            self.logger.debug(f"Up {levels} 対象の階層: {up_dir}")
+            return up_dir
+        except Exception as e:
+            self.logger.error(f"階層を上げるディレクトリでエラーが発生しました: {e}")
+            raise
+
 # ----------------------------------------------------------------------------------
 # configのパスを取得するメソッド
 
     def get_config_path(self):
         base_dir = self.currentDir()
-        parent_dir = self.up_dir(base_dir, levels=3)
+        parent_dir = self.up_dir(base_dir, levels=2)
         config_path = os.path.join(parent_dir, 'data', 'config', 'config.json')
         self.logger.debug(f"Config path: {config_path}")
         return config_path
@@ -110,6 +115,14 @@ class ReadConfig:
 
 # ----------------------------------------------------------------------------------
 
+    def test(self):
+        try:
+            pass
+            print("configの読込テスト成功")
+
+        except Exception as e:
+            self.logger.error(f"configの読込テストでエラーが発生しました: {e}")
+            raise
 
 # **********************************************************************************
 

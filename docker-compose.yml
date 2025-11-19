@@ -16,7 +16,10 @@ services:
   # ここで設定することでコンテナ内の配置や動作を指定できる
   #? 実行Command: docker compose run --rm python-app
   python-app:
-    build: ./python-app
+    build:
+      context: ./python-app
+      dockerfile: Dockerfile
+
     working_dir: /app
 
     # 対象のファイルを指定して自動保存で常時同期状態にする

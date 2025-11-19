@@ -8,4 +8,9 @@ pytz
 loguru
 pandas
 tqdm
+fastapi
+uvicorn
+requests
+python-dotenv
+pydantic
 
