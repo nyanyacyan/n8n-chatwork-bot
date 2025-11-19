@@ -1,8 +1,4 @@
-version: "3.8"
-
-
 services:
-  #? 実行Command: docker-compose up n8n
   n8n:
     image: n8nio/n8n:latest
     ports:
@@ -12,19 +8,14 @@ services:
     environment:
       - TZ=Asia/Tokyo
 
-  # dockerサービスの設定
-  # ここで設定することでコンテナ内の配置や動作を指定できる
-  #? 実行Command: docker compose run --rm python-app
   python-app:
     build:
       context: ./python-app
       dockerfile: Dockerfile
-
     working_dir: /app
 
-    # 対象のファイルを指定して自動保存で常時同期状態にする
+    # ←← これが LIVE ファイル同期の本体！！
     volumes:
       - ./python-app:/app
 
-    # コンテナ起動させる際のコマンドを指定
     command: ["/bin/bash"]
