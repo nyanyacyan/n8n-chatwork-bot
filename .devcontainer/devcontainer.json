@@ -1,0 +1,26 @@
+{
+  "name": "n8n-chatwork-bot",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "python-app",
+  "workspaceFolder": "/workspaces/n8n-chatwork-bot",
+
+  //   ssh接続を有効化
+  "mounts": [
+  "source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached"
+  ],
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python"
+      ]
+    }
+  },
+  // compose 側の command を優先させる（sleep infinity のまま）
+  "overrideCommand": false,
+
+  // root ユーザーで統一（拡張機能の永続化が安定する）
+  "remoteUser": "root"
+}
