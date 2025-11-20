@@ -8,14 +8,12 @@ services:
     environment:
       - TZ=Asia/Tokyo
 
+
   python-app:
     build:
       context: ./python-app
       dockerfile: Dockerfile
-    working_dir: /app
-
-    # ←← これが LIVE ファイル同期の本体！！
+    working_dir: /workspaces/n8n-chatwork-bot/python-app
     volumes:
-      - ./python-app:/app
-
-    command: ["/bin/bash"]
+      - ./:/workspaces/n8n-chatwork-bot
+    command: sleep infinity
