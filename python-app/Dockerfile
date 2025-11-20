@@ -7,6 +7,9 @@ FROM python:3.10-slim
 # 作業ディレクトリを設定
 WORKDIR /app
 
+# Git インストール
+RUN apt-get update && apt-get install -y git && apt-get clean
+
 COPY requirements.txt .
 
 # イメージサイズが命なのでなるべくイメージサイズを抑えるためにキャッシュを残さないようにする
