@@ -13,6 +13,8 @@ services:
     build:
       context: ./python-app
       dockerfile: Dockerfile
+    env_file:
+      - .env
     working_dir: /workspaces/n8n-chatwork-bot/python-app
     volumes:
       - ./:/workspaces/n8n-chatwork-bot
