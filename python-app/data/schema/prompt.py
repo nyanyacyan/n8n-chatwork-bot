@@ -34,49 +34,8 @@ class ChatgptErrorPrompt(str, Enum):
     error_prompt_3: str = "システムエラーが発生しました。問題の解決に努めておりますので、少々お待ちいただいてから再度お試しください。"
 
 # ----------------------------------------------------------------------------------
-# モデル
 
-class ChatgptModel(str, Enum):
-    lowcost = "gpt-5-nano-2025-08-07"      # 安くて実用レベル
-    standard = "gpt-5-mini-2025-08-07"          # ビジネス用途の最適解
-    high_spec = "gpt-5.1-2025-11-13"       # 最高性能（高い）
-
-# ----------------------------------------------------------------------------------
-# リクエストの値
-
-class ChatgptRequestValue(BaseModel):
-    model : ChatgptModel = ChatgptModel.standard  # デフォルトモデル
-    success_attribute : str = "choices"
-    is_error: bool = False
-    retry_prompt: str = "ただしくレスポンスが取得できませんでした。下記の再度回答をお願いします。"
-
-# ----------------------------------------------------------------------------------
-# レスポンスがあった際の値
-
-class ChatgptResponseValue(BaseModel):
-    chatwork_message: str
-    is_error: bool = False
-
-# ----------------------------------------------------------------------------------
-# 重要情報
-
-class ChatgptConfig(BaseSettings):
-    chatgpt_api_token: str
-    base_url: str = "https://api.chatwork.com/v2"
-
-    class Config:
-        # envファイルの中から検索する
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-    
-#! 呼び出し方法
-# chatgpt_config = ChatgptConfig()
-# chatwork_config.chatwork_api_token
-
-# **********************************************************************************
-
-
-if __name__ == "__main__":
-    pass
-
-# ----------------------------------------------------------------------------------
+class ChatgptPromptConfig(BaseSettings):
+    start_prompt: ChatgptStartPrompt = ChatgptStartPrompt.prompt_2
+    promise_prompt: ChatgptPromisePrompt = ChatgptPromisePrompt.promise_prompt_2
+    error_prompt: ChatgptErrorPrompt = ChatgptErrorPrompt.error_prompt_1
