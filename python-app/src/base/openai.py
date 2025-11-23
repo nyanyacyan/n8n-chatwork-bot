@@ -64,7 +64,7 @@ class AIChatGPT:
 # ----------------------------------------------------------------------------------
 # プロンプト生成
 
-    def get_response_text(self, response: Dict) -> Optional[str]:
+    def get_response_text(self, response: Any) -> Optional[str]:
         try:
             self.logger.info("ChatGPTの応答テキストを抽出")
             
