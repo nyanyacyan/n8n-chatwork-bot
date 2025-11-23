@@ -10,7 +10,7 @@ from openai import APIError, APIConnectionError, RateLimitError, APITimeoutError
 from ..utils.logger import Logger
 
 # value
-from ...data.schema.ai import ChatgptValue, ChatgptConfig, ChatgptRequestValue
+from ...data.schema.ai import ChatgptConfig, ChatgptRequestValue
 
 # flow
 
