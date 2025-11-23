@@ -47,6 +47,9 @@ class ChatgptModel(str, Enum):
 class ChatgptRequestValue(BaseModel):
     model : ChatgptModel = ChatgptModel.standard  # デフォルトモデル
     is_error: bool = False
+    max_retries: int = 3  # 最大リトライ回数
+    retry_delay: float = 1.0  # 初期リトライ遅延（秒）
+    backoff_factor: float = 2.0  # バックオフ係数
 
 # ----------------------------------------------------------------------------------
 # レスポンスがあった際の値
