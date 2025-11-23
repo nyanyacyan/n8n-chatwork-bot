@@ -48,7 +48,13 @@ class ChatgptRequestValue(BaseModel):
     model : ChatgptModel = ChatgptModel.standard  # デフォルトモデル
     success_attribute : str = "choices"
     is_error: bool = False
+<<<<<<< HEAD
     retry_prompt: str = "ただしくレスポンスが取得できませんでした。下記の再度回答をお願いします。"
+=======
+    max_retries: int = 3  # 最大リトライ回数
+    retry_delay: float = 1.0  # 初期リトライ遅延（秒）
+    backoff_factor: float = 2.0  # バックオフ係数
+>>>>>>> 0d1d1c8cbcb82a427f4d1dcb2983d3ee02908c49
 
 # ----------------------------------------------------------------------------------
 # レスポンスがあった際の値
