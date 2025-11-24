@@ -2,6 +2,7 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
+
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 import time, random, asyncio
@@ -86,8 +87,7 @@ class AIChatGPT:
         except Exception as e:
             self.logger.error(f"応答テキストの抽出中にエラーが発生: {e}")
             return
-        
-    
+
 # ----------------------------------------------------------------------------------
 # 再リクエストを定義
 
@@ -229,17 +229,19 @@ class AIChatGPT:
 
 
 # ----------------------------------------------------------------------------------
+# 同期処理
 
-# if __name__ == "__main__":
-#     chatgpt = AIChatGPT()
-#     test_prompt = "こんにちは、元気ですか？"
-#     response = chatgpt.simple_request(test_prompt)
-#     print(f"ChatGPTの応答: {response}")
-    
 if __name__ == "__main__":
     chatgpt = AIChatGPT()
     test_prompt = "こんにちは、元気ですか？"
-    response = asyncio.run(chatgpt.async_simple_request(test_prompt))
+    response = chatgpt.simple_request(test_prompt)
     print(f"ChatGPTの応答: {response}")
+
+# 非同期処理
+# if __name__ == "__main__":
+#     chatgpt = AIChatGPT()
+#     test_prompt = "こんにちは、元気ですか？"
+#     response = asyncio.run(chatgpt.async_simple_request(test_prompt))
+#     print(f"ChatGPTの応答: {response}")
         
 # ----------------------------------------------------------------------------------
