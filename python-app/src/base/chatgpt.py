@@ -4,9 +4,10 @@ import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
-import time, random
+import time, random, asyncio
 from typing import Dict
 from openai import OpenAI
+from openai import AsyncOpenAI
 from src.utils.logger import Logger
 
 # value
@@ -120,6 +121,48 @@ class AIChatGPT:
             self.logger.warning(f"リトライ待機: {sleep_time:.1f} 秒")
             time.sleep(sleep_time)
         
+# ----------------------------------------------------------------------------------
+# 【非同期】単独リクエスト
+
+    async def async_simple_request(self, prompt: str) -> Dict:
+        self.logger.info("ChatGPTへの非同期単独リクエストを実行")
+        
+        model_enum = self.request_value.model
+        self.logger.debug(f"現在のモデル: {model_enum.value}")
+
+        async_client = AsyncOpenAI(api_key=self.api_token)
+
+        try:
+            response = await async_client.chat.completions.create(
+                model=model_enum.value,
+                messages=[
+                    {"role": "user", "content": prompt}
+                ]
+            )
+            self.logger.info(f"ChatGPTからの応答: {response}")
+            response_text = self.get_response_text(response)
+            return response_text
+        
+        except Exception as e:
+            retry_prompt = self.request_value.retry_prompt
+            succ_attr = self.request_value.success_attribute
+            return await self.retry_request(retry_prompt, succ_attr)
+
+# ----------------------------------------------------------------------------------
+# 【非同期】再リクエストを定義
+
+    async def retry_request(self, retry_prompt: str, obj_attribute: str, max_retries: int = 3):
+        for attempt in range(1, max_retries + 1):
+            response = await self.simple_request(retry_prompt)
+
+            if response and hasattr(response, obj_attribute):
+                return response
+
+            if attempt == max_retries:
+                return None
+
+            sleep_time = (2 ** attempt) + random.uniform(0, 0.5)
+            await asyncio.sleep(sleep_time)
 
 # ----------------------------------------------------------------------------------
 #TODO ここからは別ファイルにてこれから実装予定
@@ -187,11 +230,16 @@ class AIChatGPT:
 
 # ----------------------------------------------------------------------------------
 
+# if __name__ == "__main__":
+#     chatgpt = AIChatGPT()
+#     test_prompt = "こんにちは、元気ですか？"
+#     response = chatgpt.simple_request(test_prompt)
+#     print(f"ChatGPTの応答: {response}")
+    
 if __name__ == "__main__":
     chatgpt = AIChatGPT()
     test_prompt = "こんにちは、元気ですか？"
-    response = chatgpt.simple_request(test_prompt)
-    if response:
-        text = chatgpt.get_response_text(response)
-        print(f"ChatGPTの応答: {text}")
+    response = asyncio.run(chatgpt.async_simple_request(test_prompt))
+    print(f"ChatGPTの応答: {response}")
+        
 # ----------------------------------------------------------------------------------
