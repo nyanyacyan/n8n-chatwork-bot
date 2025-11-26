@@ -67,7 +67,7 @@ class ChatworkClient:
         if message_data and "messages" in message_data:
             messages = message_data["messages"]
             if messages:
-                latest_message = messages[-1]
+                latest_message = messages[-1]  #* 取得するmsg数を調整→最新のみ取得
                 message_body = latest_message.get("body", "")
                 self.logger.debug(f"最新メッセージ取得: {message_body}")
                 return message_body
