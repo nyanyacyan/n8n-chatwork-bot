@@ -72,7 +72,7 @@ class ChatgptConfig(BaseSettings):
 
     class Config:
         # envファイルの中から検索する
-        env_file = ".env"
+        env_file = ".env.chatgpt"
         env_file_encoding = "utf-8"
     
 #! 呼び出し方法

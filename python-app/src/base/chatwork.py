@@ -1,5 +1,7 @@
 # coding: utf-8
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+import sys, os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -7,9 +9,9 @@
 import requests
 from fastapi import FastAPI, Request
 
-from ..utils.logger import Logger
-from ..utils.read_config import ReadConfig
-from ...data.schema.chatwork import ChatworkConfig, ChatworkParams
+from src.utils.logger import Logger
+from src.utils.read_config import ReadConfig
+from data.schema.chatwork import ChatworkConfig, ChatworkParams
 
 # flow
 
@@ -33,13 +35,13 @@ class ChatworkWebhookServer:
 
 # ----------------------------------------------------------------------------------
 
-    @app.post("/chatwork/webhook")
-    async def chatwork_webhook(self, request: Request):
-        data = await request.json()
-        self.logger.info(f"Webhook受信: {data}")
+    # @app.post("/chatwork/webhook")
+    # async def chatwork_webhook(self, request: Request):
+    #     data = await request.json()
+    #     self.logger.info(f"Webhook受信: {data}")
 
-        # TODO: Chatworkの内容を抽出して次の処理へ渡す
-        return {"status": "ok"}
+    #     # TODO: Chatworkの内容を抽出して次の処理へ渡す
+    #     return {"status": "ok"}
 
 # ----------------------------------------------------------------------------------
 # ChatWork API から “最新のメッセージ” を取得
@@ -145,6 +147,8 @@ class ChatworkClient:
 # **********************************************************************************
 
 if __name__ == "__main__":
-    ChatworkWebhookServer().process()
-
+    instance = ChatworkClient()
+    new_text = instance.get_new_message_text(check_message_id=404923123)
+    print(f"最新メッセージ: {new_text}")
+    
 # ----------------------------------------------------------------------------------
