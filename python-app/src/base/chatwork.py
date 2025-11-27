@@ -95,7 +95,6 @@ class ChatworkClient:
     def _build_headers(self):
         headers = {
             "X-ChatWorkToken": self.api_token,
-            "Content-Type": "application/json"
         }
         return headers
 
@@ -134,6 +133,17 @@ class ChatworkClient:
 #TODO ChatWork のマイチャットへの返信
 
 
+    def send_message_to_my_chat(self, my_room_id: int, message: str):
+        request_url = self._get_request_url(check_message_id=my_room_id)
+        payload = {
+            "body": message
+        }
+        response = requests.post(request_url, headers=self.headers, data=payload)
+        if response.status_code == 200 or response.status_code == 204:
+            self.logger.info("メッセージをマイチャットに送信しました。")
+        else:
+            self.logger.error(f"ChatWork メッセージ送信エラー: {response.status_code} - {response.text}")
+
 
 
 # ----------------------------------------------------------------------------------
@@ -148,7 +158,10 @@ class ChatworkClient:
 
 if __name__ == "__main__":
     instance = ChatworkClient()
-    new_text = instance.get_new_message_text(check_message_id=404923123)
-    print(f"最新メッセージ: {new_text}")
+    config = ChatworkConfig()
+    my_room_id = config.chatwork_my_room_id
+    print(f"My Room ID: {my_room_id}")
     
+    instance.send_message_to_my_chat(my_room_id=my_room_id, message="テストメッセージです。")
+    print("メッセージ送信完了")
 # ----------------------------------------------------------------------------------
