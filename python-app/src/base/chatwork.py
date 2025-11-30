@@ -7,7 +7,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 import requests
-from fastapi import FastAPI, Request
 
 from src.utils.logger import Logger
 from src.utils.read_config import ReadConfig
@@ -17,33 +16,6 @@ from data.schema.chatwork import ChatworkConfig, ChatworkParams
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
-#TODO WebhookServerの構築
-class ChatworkWebhookServer:
-    def __init__(self):
-        # logger
-        self.getLogger = Logger()
-        self.logger = self.getLogger.getLogger()
-
-        self.app = FastAPI()
-
-# ----------------------------------------------------------------------------------
-# webhookのアクセスを検知して処理を実行するメソッド
-
-    def process(self):
-        pass
-
-
-# ----------------------------------------------------------------------------------
-
-    # @app.post("/chatwork/webhook")
-    # async def chatwork_webhook(self, request: Request):
-    #     data = await request.json()
-    #     self.logger.info(f"Webhook受信: {data}")
-
-    #     # TODO: Chatworkの内容を抽出して次の処理へ渡す
-    #     return {"status": "ok"}
-
-# ----------------------------------------------------------------------------------
 # ChatWork API から “最新のメッセージ” を取得
 
 class ChatworkClient:
@@ -130,7 +102,7 @@ class ChatworkClient:
         return params
 
 # ----------------------------------------------------------------------------------
-#TODO ChatWork のマイチャットへの返信
+# マイチャットにメッセージを送信するメソッド
 
 
     def send_message_to_my_chat(self, my_room_id: int, message: str):
@@ -147,13 +119,6 @@ class ChatworkClient:
 
 
 # ----------------------------------------------------------------------------------
-
-# ----------------------------------------------------------------------------------
-
-# ----------------------------------------------------------------------------------
-
-
-
 # **********************************************************************************
 
 if __name__ == "__main__":
