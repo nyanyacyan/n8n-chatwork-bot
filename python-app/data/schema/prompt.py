@@ -48,41 +48,40 @@ class ChatgptPromptConfig(BaseSettings):
 
 class PromptBuilder:
     def __init__(self):
+        # logger
+        self.getLogger = Logger()
+        self.logger = self.getLogger.getLogger()
+
+        # config
         self.config = ChatgptPromptConfig()
+
+# ----------------------------------------------------------------------------------
 
     def start(self):
         return self.config.START_PROMPT.value
 
+# ----------------------------------------------------------------------------------
+
     def promise(self):
         return self.config.PROMISE_PROMPT.value
+
+# ----------------------------------------------------------------------------------
 
     def end(self):
         return self.config.END_PROMPT.value
 
-# **********************************************************************************
-
-
-class CallPrompt:
-    def __init__(self):
-        # logger
-        self.getLogger = Logger()
-        self.logger = self.getLogger.getLogger()
-        
-        self.config = ChatgptPromptConfig()
-        
-
 # ----------------------------------------------------------------------------------
-    # リクエスト用プロンプト作成メソッド
+# 全プロンプト
 
-    def build_request(self):
-        self.logger.debug("プロンプトの作成開始")
-        
-        start_prompt = self.config.START_PROMPT.value
-        promise_prompt = self.config.PROMISE_PROMPT.value
-        
-        all_prompt = f"{start_prompt}\n\n{promise_prompt}"
-        
-        self.logger.debug(f"作成したプロンプト: {all_prompt}")
-        
-        self.logger.debug("プロンプトの作成終了")
-        return all_prompt
+    def build_full_prompt(self, user_input: str) -> str:
+        prompt_parts = [
+            self.start(),
+            self.promise(),
+            user_input,
+            self.end()
+        ]
+        full_prompt = "\n".join(prompt_parts)
+        self.logger.debug(f"Prompt 全文: {full_prompt}")
+        return full_prompt
+
+# **********************************************************************************
