@@ -18,18 +18,18 @@
 - HTTP リクエストを受けて、必要なデータを Application に渡す
 - 戻り値を JSON として返すだけ
 
-できること：
+## できること：
 - Webhook の受信
 - Request の JSON を DTO に変換
 - Application の呼び出し
 - Response を JSON 変換して返す
 
-やっていい：
+## やっていい：
 ✔ Request のバリデーション
 ✔ JSON → DTO 変換
 ✔ Application への処理委譲
 
-やってはいけない：
+## やってはいけない：
 ❌ ビジネス判断
 ❌ ドメインロジック実行
 ❌ 「このあと何をするか」を決めてはダメ
@@ -50,17 +50,17 @@ async def chatwork_webhook(request: Request):
 
 # 🟡 Application Layer（ビジネス処理の本体）
 
-役割：
+## 役割：
 - プレゼンテーション層から受け取った入力を「意味のある処理」にする
 - ビジネスルールを実行する
 - 外部サービスへ問い合わせが必要なら Infrastructure 層を使う
 
-できること：
+## できること：
 - ビジネスロジック（業務処理）
 - ドメインルールの実行
 - 例外処理・再試行など
 
-やっていい：
+## やっていい：
 ✔ ドメインルール実行
 ✔ ChatGPT の再試行制御
 ✔ ChatWork API の使い方を決める
@@ -77,23 +77,23 @@ async def chatwork_webhook(request: Request):
 
 # 🔵 Infrastructure Layer（外部接続）
 
-役割：
+## 役割：
 - 外部 API / DB / 外部サービスとの通信
 - Application 層からの要求に応じて実際の通信を行う
 - 結果データを DTO に変換して返す
 
-できること：
+## できること：
 - ChatWork API 呼び出し
 - OpenAI API 呼び出し
 - ロギング
 - 設定値読み込み
 
-やっていい：
+## やっていい：
 ✔ requests / http 通信
 ✔ URL の組み立て
 ✔ JSON パース
 
-やってはいけない：
+## やってはいけない：
 ❌ 業務判断
 ❌ ビジネスロジック
 ❌ 「どう使うか」を決める
