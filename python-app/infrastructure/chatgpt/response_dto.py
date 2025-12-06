@@ -1,22 +1,26 @@
-# coding: utf-8
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+# リクエストする際のDTOを定義
+#! ここではEnumは定義NG
+
+#! 下記の定義以外は記述しない
+# 例）
+# class CreateMessageDTO(BaseModel):
+#     text: str
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from enum import Enum
 from pydantic import BaseModel
-from pydantic_settings import BaseSettings
 
-# flow
-from .config import ChatgptConfig
+# ----------------------------------------------------------------------------------
+
 from .model_enum import ChatgptModel
-from .request_dto import ChatgptRequestValue
-from .response_dto import ChatgptResponseValue
+
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 
 
-
-
-# **********************************************************************************
+class ChatgptResponseValue(BaseModel):
+    chatwork_message: str
+    is_error: bool = False
