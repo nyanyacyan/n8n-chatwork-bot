@@ -45,17 +45,24 @@ class WebhookServer:
 # ChatworkのWebhook受信ルートの追加メソッド
 
     def _add_routes(self):
-        @self.app.post("/webhook/chatwork", response_model=StandardResponse)
+        @self.app.post("/webhook/chatwork/one", response_model=StandardResponse)
         async def chatwork_webhook(request: Request):
             data = await request.json()
             self.logger.debug(f"Webhook 受信データ: {data}")
             
             #TODO ChatWork からのメッセージIDを取得
-            return self.chatwork_client.flow(data)
+            return self.chatwork_client.flow_one(data)
 
 # ----------------------------------------------------------------------------------
+# slack_webhook
 
-
+        @self.app.post("/webhook/chatwork/second", response_model=StandardResponse)
+        async def slack_webhook(request: Request):
+            data = await request.json()
+            self.logger.debug(f"Webhook 受信データ: {data}")
+            
+            #TODO ChatWork からのメッセージIDを取得
+            return self.chatwork_client.flow_second(data)
 
 # ----------------------------------------------------------------------------------
 

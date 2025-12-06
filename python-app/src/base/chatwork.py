@@ -7,6 +7,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 import requests
+from typing import Dict
 
 from src.utils.logger import Logger
 from src.utils.read_config import ReadConfig
@@ -117,6 +118,77 @@ class ChatworkClient:
             self.logger.error(f"ChatWork メッセージ送信エラー: {response.status_code} - {response.text}")
 
 
+# **********************************************************************************
+
+class ChatworkWebhookClient(ChatworkClient):
+    def __init__(self):
+        # logger
+        self.getLogger = Logger()
+        self.logger = self.getLogger.getLogger()
+        
+        # 値マスククラス
+        self.mask = ReadConfig()
+        
+        # インスタンス
+        self.chatwork_config = ChatworkConfig()
+        self.chatwork_value = ChatworkParams()
+        self.chatwork_client = ChatworkClient()
+        self.api_token = self._get_api_token()
+        self.headers = self._build_headers()
+        
+
+# ----------------------------------------------------------------------------------
+# Webhookデータを処理するフローメソッド①
+
+    def webhook_flow(self, data: dict):
+        self.logger.info("ChatWork Webhook フローを開始します。")
+        
+        target_room_id = self._get_target_room_id(data=data)
+        
+        if not target_room_id:
+            self.logger.warning("Webhook データにルームIDが含まれていません。処理を終了します。")
+            return
+        
+        check_room_new_text = self.chatwork_client.get_new_message_text(check_message_id=target_room_id)
+        
+        # 対象のルームにメッセージがあるか確認
+        if check_room_new_text:
+            self.logger.info(f"新しいメッセージを検出しました: {check_room_new_text}")
+            
+            # プロンプト生成
+            
+            # ChatGPTへのリクエスト
+            
+            # ChatGPTからのレスポンス整理
+            
+            # マイチャットへ送信
+            my_room_id = self.chatwork_config.chatwork_my_room_id
+            self.chatwork_client.send_message_to_my_chat(
+                my_room_id=my_room_id,
+                message=check_room_new_text
+            )
+            
+        else:
+            self.logger.info("新しいメッセージはありません。")
+
+# ----------------------------------------------------------------------------------
+# ルームIDを取得するメソッド
+
+    def _get_target_room_id(self, data: Dict):
+        try:
+            self.logger.debug("Webhook データからルームIDを取得します。")
+            target_room_id_value = self.chatwork_config.chatwork_my_room_id
+            target_room_id = data.get(target_room_id_value)
+            self.logger.debug(f"取得したルームID: {target_room_id}")
+            return target_room_id
+        
+        except Exception as e:
+            self.logger.error(f"ルームIDの取得中にエラーが発生しました: {e}")
+            return None
+
+# ----------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
