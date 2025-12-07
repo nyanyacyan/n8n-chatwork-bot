@@ -1,22 +1,25 @@
-# coding: utf-8
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+# DTOからpayloadへ変換する際のモデルを定義
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
-from enum import Enum
 from pydantic import BaseModel
-from pydantic_settings import BaseSettings
+from .request_dto import ChatgptRequestDTO
 
-# flow
-from .config import ChatgptConfig
-from .model_enum import ChatgptModel
-from .request_dto import ChatgptRequestValue
-from .response_dto import ChatgptResponseValue
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 
 
+class ChatGptPayload(BaseModel):
+    model: str
+    prompt: str
 
+    @classmethod
+    def from_dto(cls, dto: ChatgptRequestDTO):
+        return cls(
+            model=dto.model,
+            prompt=dto.prompt,
+        )
 
 # **********************************************************************************
