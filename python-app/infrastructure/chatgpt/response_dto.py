@@ -24,3 +24,6 @@ from .model_enum import ChatgptModel
 class ChatgptResponseValue(BaseModel):
     chatwork_message: str
     is_error: bool = False
+    
+
+# **********************************************************************************
