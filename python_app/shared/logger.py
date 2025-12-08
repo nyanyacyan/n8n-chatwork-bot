@@ -124,7 +124,8 @@ class Logger:
 # logsFileを取得
 
     def toLogsPath(self, levelsUp: int = 3, dirName: str = 'logs'):
-        logsPath = self.currentDate
+        current_dir = self.currentDir
+        logsPath = current_dir.parents[levelsUp - 1] / dirName / self.currentDate
 
         self.isDirectoryExists(path=logsPath)
         return logsPath

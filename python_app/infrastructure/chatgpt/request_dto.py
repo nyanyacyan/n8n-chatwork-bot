@@ -23,7 +23,7 @@ from .model_enum import ChatgptModel
 
 class ChatgptRequestValue(BaseModel):
     model: ChatgptModel = ChatgptModel.standard  # デフォルトモデル
-    
+    prompt: str
     success_attribute: str = "choices"
     is_error: bool = False
     

@@ -20,18 +20,23 @@
 # 外部API(OpenAI)
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+import sys, os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
+
 # import
-import openai
+from openai import OpenAI
 from enum import Enum
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
 
+from shared.logger import Logger
+
 
 # ChatGPT関連
-from .config import ChatgptConfig
-from .response_dto import ChatgptResponseDTO
-from .request_dto import ChatgptRequestValue
-from data.domain.interfaces.chatgpt_client import ChatGPTClient
+from infrastructure.chatgpt.config import ChatgptConfig
+from infrastructure.chatgpt.response_dto import ChatgptResponseDTO
+from infrastructure.chatgpt.request_dto import ChatgptRequestValue
+from python_app.data.domain.interfaces.chatgpt_client import ChatGPTClient
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
@@ -41,18 +46,23 @@ from data.domain.interfaces.chatgpt_client import ChatGPTClient
 
 class OpenAIClient(ChatGPTClient):
     def __init__(self, config: ChatgptConfig):
+        # logger
+        self.getLogger = Logger()
+        self.logger = self.getLogger.getLogger()
         self.config = config
+        self.client = OpenAI(api_key=self.config.chatgpt_api_token)
+
 
     def completion(self, dto: ChatgptRequestValue):
-        result = openai.chat.completions.create(
+        self.logger.info(f"self.config.chatgpt_api_token: {self.config.chatgpt_api_token}   ")
+        result = self.client.chat.completions.create(
             model=dto.model.value,
             messages=[
                 {"role": "user", "content": dto.prompt}
-            ],
-            api_key=ChatgptConfig.chatgpt_api_token.value
+            ]
         )
         return ChatgptResponseDTO(
-            msg=result.choices[0].message["content"]
+            msg=result.choices[0].message.content
         )
 
 
@@ -60,7 +70,8 @@ class OpenAIClient(ChatGPTClient):
 
 
 if __name__ == "__main__":
-    test_openai = OpenAIClient()
+    config = ChatgptConfig()  # .env.chatgpt を読む
+    test_openai = OpenAIClient(config=config)
     test_dto = ChatgptRequestValue(
         prompt="Hello, ChatGPT! How are you today?"
     )
