@@ -25,12 +25,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"
 
 # import
 from openai import OpenAI
-from enum import Enum
-from pydantic import BaseModel
-from pydantic_settings import BaseSettings
-
-from shared.logger import Logger
-
 
 # ChatGPT関連
 from infrastructure.chatgpt.config import ChatgptConfig
@@ -46,15 +40,12 @@ from python_app.data.domain.interfaces.chatgpt_client import ChatGPTClient
 
 class OpenAIClient(ChatGPTClient):
     def __init__(self, config: ChatgptConfig):
-        # logger
-        self.getLogger = Logger()
-        self.logger = self.getLogger.getLogger()
+
         self.config = config
         self.client = OpenAI(api_key=self.config.chatgpt_api_token)
 
 
     def completion(self, dto: ChatgptRequestValue):
-        self.logger.info(f"self.config.chatgpt_api_token: {self.config.chatgpt_api_token}   ")
         result = self.client.chat.completions.create(
             model=dto.model.value,
             messages=[
@@ -67,7 +58,7 @@ class OpenAIClient(ChatGPTClient):
 
 
 # **********************************************************************************
-
+# テストOK
 
 if __name__ == "__main__":
     config = ChatgptConfig()  # .env.chatgpt を読む
