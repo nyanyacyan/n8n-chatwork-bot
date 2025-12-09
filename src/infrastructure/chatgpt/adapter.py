@@ -36,7 +36,3 @@ class ChatgptAdapter:
         return response.choices[0].message.content
 
 # **********************************************************************************
-
-
-if __name__ == "__main__":
-    ChatgptAdapter()

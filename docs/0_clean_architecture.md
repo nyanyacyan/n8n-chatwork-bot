@@ -88,3 +88,44 @@ usecase.execute(message)
 - 結合はPresentation層に1箇所だけ
 
 本ドキュメントはプロジェクト全体の設計思想共有を目的とする。
+
+
+
+
+1. Clean Architectureとは何か（定義）
+1-1. Clean Architectureの目的
+
+変更容易性（Changeable）
+
+テスト容易性（Testable）
+
+外部環境に影響されない（Stable）
+
+長期保守性（Maintainable）
+
+抽象化による疎結合（Decoupled）
+
+永続性（Durable）
+
+※ プロ視点：
+
+Cleanは「綺麗なディレクトリ構造」のことではない。
+変わりゆく外部世界から、変わりにくいビジネスロジックを守る思想。
+
+
+
+2. Clean Architectureの中心思想（4レイヤー）
+
+Domain ← Application ← Presentation ← Infrastructure
+
+依存方向は常に 内側へ
+
+Domainは外側を知らない
+
+Applicationは外側を知らない
+
+Presentationだけ外部世界に面する
+
+Infrastructureは外部詳細を持つ
+
+必ず 抽象（Port）が内側、具体（Adapter）が外側。

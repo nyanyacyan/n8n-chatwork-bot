@@ -8,7 +8,7 @@ from enum import Enum
 
 class ChatgptModel(str, Enum):
     lowcost = "gpt-5-nano-2025-08-07"      # 安くて実用レベル
-    standard = "gpt-5-mini-2025-08-07"          # ビジネス用途の最適解
+    standard = "gpt-5-mini-2025-08-07"     # ビジネス用途の最適解
     high_spec = "gpt-5.1-2025-11-13"       # 最高性能（高い）
 
 # ----------------------------------------------------------------------------------

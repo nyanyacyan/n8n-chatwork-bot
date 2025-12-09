@@ -20,8 +20,9 @@
 # 外部API(OpenAI)
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-import sys, os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
+# MACテスト用
+# import sys, os
+# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
 # import
 from openai import OpenAI
