@@ -10,12 +10,10 @@ from dataclasses import dataclass
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 
-@dataclass(frozen=True)
-class MsgContent:
-    value: str
 
-    def __post_init__(self):
-        if not self.value:
-            raise ValueError("送信メッセージの値がありません")
+@dataclass
+class GetNewMsgRequest:
+    room_id: str
+    msg: str
 
 # **********************************************************************************
