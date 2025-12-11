@@ -17,6 +17,7 @@ from dataclasses import dataclass
 class RoomId:
     value: str
 
+    # 不正な値を除外
     def __post_init__(self):
         if not self.value:
             raise ValueError("値が送信先の指定がありません")

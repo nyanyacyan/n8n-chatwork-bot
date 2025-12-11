@@ -10,7 +10,7 @@
 # この 4つ だけが責務。
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
-from src.domain.values.room import RoomId
+from domain.values.room_id import RoomId
 from src.domain.ports.msg_reader_port import MsgReaderPort
 from src.application.dtos.get_new_msg import GetNewMsgRequest
 

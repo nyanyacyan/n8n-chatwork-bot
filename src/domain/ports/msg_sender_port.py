@@ -5,7 +5,7 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from typing import Protocol
-from src.domain.values.room import RoomId
+from domain.values.room_id import RoomId
 from src.domain.values.msg_content import MsgContent
 
 
