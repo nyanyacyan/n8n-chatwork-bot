@@ -31,7 +31,7 @@ from openai import OpenAI
 from infrastructure.chatgpt.config import ChatgptConfig
 from infrastructure.chatgpt.response_dto import ChatgptResponseDTO
 from infrastructure.chatgpt.request_dto import ChatgptRequestValue
-from python_app.data.domain.interfaces.chatgpt_client import ChatGPTClient
+from src.domain.ports.chatgpt_client import ChatGPTClient
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
