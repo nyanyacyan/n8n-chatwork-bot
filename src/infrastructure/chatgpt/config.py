@@ -5,7 +5,7 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from pydantic_settings import BaseSettings
-
+from .model_enum import ChatgptModel
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
@@ -14,6 +14,8 @@ from pydantic_settings import BaseSettings
 class ChatgptConfig(BaseSettings):
     chatgpt_api_token: str
     base_url: str = "https://api.chatwork.com/v2"
+    model: ChatgptModel = ChatgptModel.standard
+
 
     class Config:
         # envファイルの中から検索する

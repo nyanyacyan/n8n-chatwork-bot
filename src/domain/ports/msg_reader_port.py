@@ -6,7 +6,7 @@
 # import
 from typing import Protocol
 from domain.values.room_id import RoomId
-from src.domain.entities.msg import Msg
+from domain.entities.reply import Msg
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************

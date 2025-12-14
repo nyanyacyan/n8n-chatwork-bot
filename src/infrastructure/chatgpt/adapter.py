@@ -8,31 +8,30 @@
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
-from enum import Enum
-from pydantic import BaseModel
-from pydantic_settings import BaseSettings
+
+# Domain
+from src.domain.ports.text_generator_port import TextGeneratorPort
+from domain.values.reply_content import MsgContent
 
 # infrastructure
-from .payload import ChatGptPayload
-from .response_dto import ChatgptResponseDTO
-from data.domain.interfaces.chatgpt_client import ChatGPTClient
+from .client import OpenAIClient
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 
 
-class ChatgptAdapter:
-    def __init__(self, client: ChatGPTClient):
+class ChatGPTTextGeneratorAdapter(TextGeneratorPort):
+    def __init__(self, client: OpenAIClient):
         self.client = client
 
-    def generate(self, dto: ChatgptResponseDTO) -> str:
+    def generate(self, msg: MsgContent) -> str:
         # ① DTO → Payload の変換を呼び出す
-        payload = ChatGptPayload.from_dto(dto)
+        prompt = msg.value
 
         # ② Client に通信を依頼する
-        response = self.client.completion(payload.prompt)
+        response = self.client.generate_text(prompt=prompt)
 
         # ③ 外部の結果を DTO に戻す
-        return response.choices[0].message.content
+        return MsgContent(value=response)
 
 # **********************************************************************************

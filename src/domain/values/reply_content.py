@@ -1,20 +1,22 @@
 # coding: utf-8
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-# 仕様：メッセージ送信能力を定義するポート
+# 仕様：返信の値に制限をもたせる
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
-from typing import Protocol
-from domain.values.room_id import RoomId
-from domain.values.reply_content import MsgContent
+from dataclasses import dataclass
 
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 
+@dataclass(frozen=True)
+class ReplyContent:
+    value: str
 
-class MsgSenderPort(Protocol):
-    def send_msg(self, room_id: RoomId, msg: MsgContent) -> None:
-        ...
+    # 不正な値を除外
+    def __post_init__(self):
+        if not self.value:
+            raise ValueError("送信メッセージの値がありません")
 
 # **********************************************************************************

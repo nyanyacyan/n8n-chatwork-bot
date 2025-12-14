@@ -5,7 +5,7 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from domain.values.room_id import RoomId
-from src.domain.values.msg_content import MsgContent
+from domain.values.reply_content import MsgContent
 from src.application.dtos.send_msg_request import SendMsgRequest
 from src.domain.ports.msg_sender_port import MsgSenderPort
 

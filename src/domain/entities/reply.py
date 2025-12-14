@@ -1,19 +1,18 @@
 # coding: utf-8
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-# 仕様：
+# 仕様：返信の値に対して属性をもたせる
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
-from domain.entities.reply import Msg
-
+from dataclasses import dataclass
+from domain.values.reply_content import MsgContent
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 
-
-class MsgDomainService:
-    @staticmethod
-    def can_send(message: Msg) -> bool:
-        return message.length() > 0
+@dataclass(frozen=True)
+class Reply:
+    id: MsgContent
+    content: MsgContent
 
 # **********************************************************************************

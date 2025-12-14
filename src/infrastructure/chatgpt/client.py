@@ -1,23 +1,6 @@
 # coding: utf-8
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-# Client は “外部サービスと通信する実体(=外部の窓口)” 
-# API通信を行う役
-# HTTP/リクエスト処理の責務
-# 外部仕様に合わせて作られる層
-# インフラ層の実装者
-
-# ・Application層 → Clientの契約 (=Protocol)を知る
-# ・Infrastructure層 → Clientの実装を持つ
-
-# Application
-#    │  (知るのは “clientがある”という事実だけ)
-#    ▼
-# ChatGPTClient(Protocol)
-#    ▲
-#    │
-# OpenAIClient(実装)
-#    │
-# 外部API(OpenAI)
+# 仕様：ChatGPTクライアント実装
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # MACテスト用
@@ -29,33 +12,27 @@ from openai import OpenAI
 
 # ChatGPT関連
 from infrastructure.chatgpt.config import ChatgptConfig
-from infrastructure.chatgpt.response_dto import ChatgptResponseDTO
-from infrastructure.chatgpt.request_dto import ChatgptRequestValue
-from src.domain.ports.chatgpt_client import ChatGPTClient
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
-# ChatGPTClientという抽象インターフェースの実装
-# 中身を抽象化（=隠蔽）し、外側に漏れない=Clean Architectureの原則
-# ChatGPTClientはdomainにて抽象化された値
+# ここではほぼドキュメント通りに記述する
 
-class OpenAIClient(ChatGPTClient):
+class OpenAIClient:
     def __init__(self, config: ChatgptConfig):
 
         self.config = config
         self.client = OpenAI(api_key=self.config.chatgpt_api_token)
 
 
-    def completion(self, dto: ChatgptRequestValue):
+    def generate_text(self, prompt: str):
         result = self.client.chat.completions.create(
-            model=dto.model.value,
+            model=self.config.model.value,
             messages=[
-                {"role": "user", "content": dto.prompt}
+                {"role": "user", "content": prompt}
             ]
         )
-        return ChatgptResponseDTO(
-            msg=result.choices[0].message.content
-        )
+        return result.choices[0].message.content
+
 
 
 # **********************************************************************************
@@ -64,8 +41,6 @@ class OpenAIClient(ChatGPTClient):
 if __name__ == "__main__":
     config = ChatgptConfig()  # .env.chatgpt を読む
     test_openai = OpenAIClient(config=config)
-    test_dto = ChatgptRequestValue(
-        prompt="Hello, ChatGPT! How are you today?"
-    )
-    response = test_openai.completion(test_dto)
-    print(response.msg)
+    test_prompt = "次の文章を英語に翻訳してください。\nこんにちは、元気ですか？"
+    response = test_openai.generate_text(prompt=test_prompt)
+    print(response)

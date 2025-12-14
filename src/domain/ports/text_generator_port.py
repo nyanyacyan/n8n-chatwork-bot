@@ -5,7 +5,7 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from typing import Protocol
-from src.domain.values.msg_content import MsgContent
+from domain.values.reply_content import MsgContent
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
