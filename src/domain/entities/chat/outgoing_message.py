@@ -15,7 +15,7 @@ from domain.values.chat_msg_content import ChatMsgContent
 
 
 @dataclass(frozen=True)
-class ChatMsg:
+class Message:
     room_id: RoomId
     content: ChatMsgContent
 

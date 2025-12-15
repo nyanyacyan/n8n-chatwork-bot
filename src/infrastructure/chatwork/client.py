@@ -23,20 +23,20 @@ class ChatWorkClient:
 # ----------------------------------------------------------------------------------
 # msg送信
 
-    def send_message(self, room_id: int, text: str) -> dict:
+    def send_message(self, room_id: int, msg_content: str) -> dict:
         url = f"{self.base_url}/rooms/{room_id}/messages"
         response = requests.post(
             url,
             headers=self.headers,
-            data={"body": text}
+            data={"body": msg_content}
         )
         response.raise_for_status()
         return response.json()
 
 # ----------------------------------------------------------------------------------
-# 最新のmsgを取得
+# すべてのmsg取得
 
-    def get_new_msg(self, room_id: int, since: int) -> dict:
+    def get_messages(self, room_id: int):
         url = f"{self.base_url}/rooms/{room_id}/messages"
         response = requests.get(
             url,

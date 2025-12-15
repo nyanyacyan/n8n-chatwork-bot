@@ -4,38 +4,45 @@
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
-from pydantic import BaseModel
-from infrastructure.chatwork.payload import ChatworkSendMsgPayload, ChatworkGetMsgPayload
-from infrastructure.chatwork.request_dto import ChatworkSendMsgDTO, ChatworkGetMsgDTO
-from data.domain.interfaces.chatwork_client import ChatworkSendMsgClient, ChatworkGetMsgClient
+from src.domain.ports.msg_sender_port import MsgSenderPort
+from src.domain.ports.msg_reader_port import MsgReaderPort
+
+# 値
+from src.domain.values.chat_msg_content import ChatMsgContent
+from src.domain.values.room_id import RoomId
+from domain.entities.chat.outgoing_message import Message
+from domain.entities.chat.received_message import ReceivedChatMessage
+
+from .client import ChatWorkClient
+from .config import ChatworkConfig
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 
 
-class ChatworkSendMsgAdapter:
-    def __init__(self, client: ChatworkSendMsgClient):
+class ChatworkSendMsgAdapter(MsgSenderPort):
+    def __init__(self, client: ChatWorkClient):
         self.client = client
-        
-    def execute(self, dto: ChatworkSendMsgDTO) -> None:
-        # DTOからPayloadへ変換
-        payload = ChatworkSendMsgPayload.from_dto(dto)
-        
-        # ここでClientで定義する内容を定義
-        return self.client.send_msg(payload=payload)
 
+# ----------------------------------------------------------------------------------
+
+
+    def execute(self, msg: Message) -> None:
+        room_id = msg.room_id.value
+        msg_content = msg.content.value
+
+        # メッセージを送信
+        return self.client.send_message( room_id=room_id, msg_content=msg_content )
+        
 # **********************************************************************************
 
 
-class ChatworkGetMsgAdapter:
-    def __init__(self, client: ChatworkGetMsgClient):
+class ChatworkGetMessagesAdapter(MsgReaderPort):
+    def __init__(self, client: ChatWorkClient):
         self.client = client
         
-    def execute(self, dto: ChatworkGetMsgDTO) -> None:
-        # DTOからPayloadへ変換
-        payload = ChatworkGetMsgPayload.from_dto(dto)
-        
-        # ここでClientで定義する内容を定義
-        return self.client.get_new_msg(payload=payload) 
-    
+    def execute(self, room_id: RoomId):
+        raw_room_id = room_id.value
+        return self.client.get_messages(room_id=raw_room_id)
+
 # **********************************************************************************

@@ -11,7 +11,9 @@
 
 # Domain
 from src.domain.ports.text_generator_port import TextGeneratorPort
-from domain.values.reply_content import MsgContent
+from domain.values.prompt_content import PromptContent
+from domain.entities.llm.response import Response
+from domain.values.response_content import ResponseContent
 
 # infrastructure
 from .client import OpenAIClient
@@ -24,14 +26,17 @@ class ChatGPTTextGeneratorAdapter(TextGeneratorPort):
     def __init__(self, client: OpenAIClient):
         self.client = client
 
-    def generate(self, msg: MsgContent) -> str:
-        # ① DTO → Payload の変換を呼び出す
-        prompt = msg.value
+    def generate(self, prompt: PromptContent) -> Response:
+        prompt_text = prompt.value
 
-        # ② Client に通信を依頼する
-        response = self.client.generate_text(prompt=prompt)
+        # APIの実施
+        response = self.client.generate_text(prompt=prompt_text)
 
-        # ③ 外部の結果を DTO に戻す
-        return MsgContent(value=response)
+        # 値フィルター実施
+        raw_response = ResponseContent(value=response)
+
+        # 値のステータス取得
+        # 値+ステータスも持たせている状態
+        return Response(content=raw_response)
 
 # **********************************************************************************
