@@ -4,14 +4,22 @@
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
-
+from dataclasses import dataclass
 
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 
 
-class FMT:
-    pass
+@dataclass(frozen=True)
+class ResponseContent:
+    value: str
+
+    def __post_init__(self):
+        if not self.value:
+            raise ValueError("Responseが空です")
+
+    def length(self) -> int:
+        return len(self.value)
 
 # **********************************************************************************
