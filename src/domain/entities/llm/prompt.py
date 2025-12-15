@@ -1,28 +1,22 @@
 # coding: utf-8
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-# 仕様：Promptの値の制限をもたせる
+# 仕様：
+
+# valueObjectは具体的なファイル名、機能をもたせることでファイル名を少し曖昧にする
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from dataclasses import dataclass
-
+from domain.values.prompt_content import PromptContent
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 
 @dataclass(frozen=True)
-class PromptContent:
-    value: str
+class Prompt:
+    content: PromptContent
 
-    # 不正な値を除外
-    def __post_init__(self):
-        if not self.value:
-            raise ValueError("プロンプトが空です")
-
-        if len(self.value) > 2000:
-            raise ValueError("Promptは2000文字以内にしてください")
-    
     def length(self) -> int:
-        return len(self.value)
+        return self.content.length()
 
 # **********************************************************************************

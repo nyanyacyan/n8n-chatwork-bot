@@ -1,24 +1,28 @@
 # coding: utf-8
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-# 仕様：
-
-# valueObjectは具体的なファイル名、機能をもたせることでファイル名を少し曖昧にする
+# 仕様：Promptの値の制限をもたせる
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from dataclasses import dataclass
-from domain.values.reply_content import MsgContent
+
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 
 @dataclass(frozen=True)
-class Msg:
-    id: MsgContent
-    content: MsgContent
+class ChatMsgContent:
+    value: str
+
+    # 不正な値を除外
+    def __post_init__(self):
+        if not self.value:
+            raise ValueError("プロンプトが空です")
+
+        if len(self.value) > 2000:
+            raise ValueError("ChatMsgは2000文字以内にしてください")
     
-    # 文字数のステータス
     def length(self) -> int:
-        return len(self.content.value)
+        return len(self.value)
 
 # **********************************************************************************
