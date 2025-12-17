@@ -37,7 +37,7 @@ class SendChatMessageUseCase:
             content=ChatMsgContent(response.content.value)
         )
 
-        self.sender.send_msg(msg)
+        self.sender.execute(msg)
 
         self.logger.info("Chat メッセージ送信処理が完了")
 

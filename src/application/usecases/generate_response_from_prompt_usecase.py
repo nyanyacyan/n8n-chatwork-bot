@@ -28,7 +28,7 @@ class GenerateResponseFromPromptUseCase:
     def execute(self, prompt: Prompt) -> Response:
         self.logger.info("LLM へのリクエストを開始")
 
-        response = self.generator.generate(prompt)
+        response = self.generator.execute(prompt)
 
         self.logger.info("LLM からのレスポンスを受信")
         self.logger.debug(f"Response: {response}")

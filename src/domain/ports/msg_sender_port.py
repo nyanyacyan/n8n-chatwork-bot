@@ -13,7 +13,7 @@ from domain.entities.chat.outgoing_message import OutgoingMessage
 
 
 class MsgSenderPort(Protocol):
-    def send_msg(self, msg: OutgoingMessage) -> None:
+    def execute(self, msg: OutgoingMessage) -> None:
         ...
 
 # **********************************************************************************

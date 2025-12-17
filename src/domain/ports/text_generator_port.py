@@ -5,14 +5,15 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from typing import Protocol
-from domain.values.reply_content import MsgContent
+from src.domain.entities.llm.prompt import Prompt
+from src.domain.entities.llm.response import Response
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 
 
 class TextGeneratorPort(Protocol):
-    def generate(self, Msg: MsgContent) -> MsgContent:
+    def execute(self, Msg: Prompt) -> Response:
         ...
 
 # **********************************************************************************
