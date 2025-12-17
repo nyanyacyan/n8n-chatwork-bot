@@ -41,6 +41,9 @@ class ChatworkGetMessagesAdapter(MsgReaderPort):
     def __init__(self, client: ChatWorkClient):
         self.client = client
         
+# ----------------------------------------------------------------------------------
+
+
     def execute(self, room_id: RoomId):
         raw_room_id = room_id.value
         return self.client.get_messages(room_id=raw_room_id)

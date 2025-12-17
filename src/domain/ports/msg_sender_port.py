@@ -6,7 +6,7 @@
 # import
 from typing import Protocol
 from domain.values.room_id import RoomId
-from domain.values.reply_content import MsgContent
+from domain.values.chat_msg_content import ChatMsgContent
 
 
 # ----------------------------------------------------------------------------------
@@ -14,7 +14,7 @@ from domain.values.reply_content import MsgContent
 
 
 class MsgSenderPort(Protocol):
-    def send_msg(self, room_id: RoomId, msg: MsgContent) -> None:
+    def send_msg(self, room_id: RoomId, msg: ChatMsgContent) -> None:
         ...
 
 # **********************************************************************************
