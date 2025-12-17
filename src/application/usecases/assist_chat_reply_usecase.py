@@ -17,7 +17,7 @@ from shared.logger import Logger
 # **********************************************************************************
 
 
-class ReplyToLatestChatMessageUseCase:
+class AssistChatReplyUseCase:
     def __init__(
         self,
         get_latest_msg_uc: GetLatestChatMessageUseCase,
