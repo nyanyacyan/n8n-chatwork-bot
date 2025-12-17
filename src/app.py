@@ -7,6 +7,7 @@
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
+from src.shared.logger import Logger
 # -----------------------
 # Infrastructure (Client)
 # -----------------------
@@ -41,41 +42,49 @@ from application.usecases.assist_chat_reply_usecase import AssistChatReplyUseCas
 # 起動
 # -----------------------
 def main():
-    # =====================
-    # 1. Client 作成
-    # =====================
-    chatwork_client = ChatWorkClient()
-    chatgpt_client = OpenAIClient()
+    try:
+        logger_setup = Logger()
+        logger = logger_setup.getLogger()
+        
+        # =====================
+        # 1. Client 作成
+        # =====================
+        chatwork_client = ChatWorkClient()
+        chatgpt_client = OpenAIClient()
 
-    # =====================
-    # 2. Adapter 作成
-    # =====================
-    msg_reader = ChatworkGetMessagesAdapter(chatwork_client)
-    msg_sender = ChatworkSendMsgAdapter(chatwork_client)
-    text_generator = ChatGPTTextGeneratorAdapter(chatgpt_client)
+        # =====================
+        # 2. Adapter 作成
+        # =====================
+        msg_reader = ChatworkGetMessagesAdapter(chatwork_client)
+        msg_sender = ChatworkSendMsgAdapter(chatwork_client)
+        text_generator = ChatGPTTextGeneratorAdapter(chatgpt_client)
 
-    # =====================
-    # 3. UseCase 作成（小）
-    # =====================
-    get_latest_msg_uc = GetLatestChatMessageUseCase(msg_reader)
-    create_prompt_uc = CreatePromptFromChatMessageUseCase()
-    generate_reply_uc = GenerateResponseFromPromptUseCase(text_generator)
-    send_reply_uc = SendChatMessageUseCase(msg_sender)
+        # =====================
+        # 3. UseCase 作成（小）
+        # =====================
+        get_latest_msg_uc = GetLatestChatMessageUseCase(msg_reader)
+        create_prompt_uc = CreatePromptFromChatMessageUseCase()
+        generate_reply_uc = GenerateResponseFromPromptUseCase(text_generator)
+        send_reply_uc = SendChatMessageUseCase(msg_sender)
 
-    # =====================
-    # 4. Orchestration UseCase
-    # =====================
-    reply_uc = AssistChatReplyUseCase(
-        get_latest_msg_uc,
-        create_prompt_uc,
-        generate_reply_uc,
-        send_reply_uc,
-    )
+        # =====================
+        # 4. Orchestration UseCase
+        # =====================
+        reply_uc = AssistChatReplyUseCase(
+            get_latest_msg_uc,
+            create_prompt_uc,
+            generate_reply_uc,
+            send_reply_uc,
+        )
 
-    # =====================
-    # 5. 実行
-    # =====================
-    reply_uc.execute()
+        # =====================
+        # 5. 実行
+        # =====================
+        reply_uc.execute()
+
+    except Exception as e:
+        logger.error(f"予期せぬエラーが発生しました: {e}")
+        raise e
 
 # **********************************************************************************
 

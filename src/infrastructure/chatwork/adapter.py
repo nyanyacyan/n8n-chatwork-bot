@@ -10,11 +10,10 @@ from src.domain.ports.msg_reader_port import MsgReaderPort
 # 値
 from src.domain.values.chat_msg_content import ChatMsgContent
 from src.domain.values.room_id import RoomId
-from domain.entities.chat.outgoing_message import Message
+from domain.entities.chat.outgoing_message import OutgoingMessage
 from domain.entities.chat.received_message import ReceivedChatMessage
 
 from .client import ChatWorkClient
-from .config import ChatworkConfig
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
@@ -27,7 +26,7 @@ class ChatworkSendMsgAdapter(MsgSenderPort):
 # ----------------------------------------------------------------------------------
 
 
-    def execute(self, msg: Message) -> None:
+    def execute(self, msg: OutgoingMessage) -> None:
         room_id = msg.room_id.value
         msg_content = msg.content.value
 
@@ -44,8 +43,17 @@ class ChatworkGetMessagesAdapter(MsgReaderPort):
 # ----------------------------------------------------------------------------------
 
 
-    def execute(self, room_id: RoomId):
-        raw_room_id = room_id.value
-        return self.client.get_messages(room_id=raw_room_id)
+    def execute(self, room_id: RoomId) -> list[ReceivedChatMessage]:
+        raw_messages = self.client.get_messages(room_id=room_id.value)
+
+        messages = []
+        for raw in raw_messages:
+            messages.append(
+                ReceivedChatMessage(
+                    room_id=room_id,
+                    content=ChatMsgContent(raw["body"])
+                )
+            )
+        return messages
 
 # **********************************************************************************

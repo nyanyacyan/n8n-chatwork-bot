@@ -56,3 +56,42 @@ if __name__ == "__main__":
     main()
 
 ```
+
+---
+
+
+
+## 例外処理に関して
+### 予測して構築するのはNG
+**基本は例外が発生してから構築する⭕️**
+
+- 無駄なコードが増える（時間の浪費）
+- 可読性が下がる
+- メンテナンス性が下がる
+
+<br>
+
+### 例外が発生した場合
+**発生箇所にあわせてその箇所で構築⭕️**
+- 例外が発生したら、その箇所で例外をキャッチしてログを残す
+- 必要に応じて再度例外を投げる
+
+
+<br>
+
+### 例外の投げ方
+**基本はそのArchitectureに合わせた例外名を使って投げる⭕️**
+
+- 例: DomainError, InfraError
+
+```python
+
+except DomainError as e:
+    logger.warning(e)
+
+except InfraError as e:
+    logger.error(e)
+
+except Exception as e:
+    logger.exception(e)
+```

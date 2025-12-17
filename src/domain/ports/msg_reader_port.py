@@ -6,14 +6,14 @@
 # import
 from typing import Protocol
 from domain.values.room_id import RoomId
-from domain.entities.reply import Msg
+from domain.entities.chat.received_message import ReceivedChatMessage
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 
 
 class MsgReaderPort(Protocol):
-    def get_new_msg(self,room_id: RoomId) -> Msg:
+    def execute(self,room_id: RoomId) -> list[ReceivedChatMessage]:
         ...
 
 # **********************************************************************************
