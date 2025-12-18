@@ -15,41 +15,47 @@ Client → Adapter → UseCase → Orchestration UseCase → main()
 
 # app.py
 def main():
-    # =====================
-    # 1. Client 作成
-    # =====================
-    chatwork_client = ChatWorkClient()
-    chatgpt_client = OpenAIClient()
+        # =====================
+        # 0. Config 作成
+        # =====================
+        chatwork_config = ChatworkConfig()
+        chatgpt_config = ChatgptConfig()
 
-    # =====================
-    # 2. Adapter 作成
-    # =====================
-    msg_reader = ChatworkGetMessagesAdapter(chatwork_client)
-    msg_sender = ChatworkSendMsgAdapter(chatwork_client)
-    text_generator = ChatGPTTextGeneratorAdapter(chatgpt_client)
+        # =====================
+        # 1. Client 作成
+        # =====================
+        chatwork_client = ChatWorkClient(chatwork_config)
+        chatgpt_client = OpenAIClient(chatgpt_config)
 
-    # =====================
-    # 3. UseCase 作成（小）
-    # =====================
-    get_latest_msg_uc = GetLatestChatMessageUseCase(msg_reader)
-    create_prompt_uc = CreatePromptFromChatMessageUseCase()
-    generate_reply_uc = GenerateResponseFromPromptUseCase(text_generator)
-    send_reply_uc = SendChatMessageUseCase(msg_sender)
+        # =====================
+        # 2. Adapter 作成
+        # =====================
+        msg_reader = ChatworkGetMessagesAdapter(chatwork_client)
+        msg_sender = ChatworkSendMsgAdapter(chatwork_client)
+        text_generator = ChatGPTTextGeneratorAdapter(chatgpt_client)
 
-    # =====================
-    # 4. Orchestration UseCase
-    # =====================
-    reply_uc = AssistChatReplyUseCase(
-        get_latest_msg_uc,
-        create_prompt_uc,
-        generate_reply_uc,
-        send_reply_uc,
-    )
+        # =====================
+        # 3. UseCase 作成（小）
+        # =====================
+        get_latest_msg_uc = GetLatestChatMessageUseCase(msg_reader)
+        create_prompt_uc = CreatePromptFromChatMessageUseCase()
+        generate_reply_uc = GenerateResponseFromPromptUseCase(text_generator)
+        send_reply_uc = SendChatMessageUseCase(msg_sender)
 
-    # =====================
-    # 5. 実行
-    # =====================
-    reply_uc.execute()
+        # =====================
+        # 4. Orchestration UseCase
+        # =====================
+        reply_uc = AssistChatReplyUseCase(
+            get_latest_msg_uc,
+            create_prompt_uc,
+            generate_reply_uc,
+            send_reply_uc,
+        )
+
+        # =====================
+        # 5. 実行
+        # =====================
+        reply_uc.execute()
 
 
 if __name__ == "__main__":

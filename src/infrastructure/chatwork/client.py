@@ -5,7 +5,7 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 import requests
-from infrastructure.chatwork.config import ChatworkConfig
+from src.infrastructure.chatwork.config import ChatworkConfig
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************

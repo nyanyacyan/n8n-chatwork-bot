@@ -8,6 +8,13 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from src.shared.logger import Logger
+
+# -----------------------
+# Infrastructure (Config)
+# -----------------------
+from src.infrastructure.chatwork.config import ChatworkConfig
+from src.infrastructure.chatgpt.config import ChatgptConfig
+
 # -----------------------
 # Infrastructure (Client)
 # -----------------------
@@ -45,12 +52,18 @@ def main():
     try:
         logger_setup = Logger()
         logger = logger_setup.getLogger()
-        
+
+        # =====================
+        # 0. Config 作成
+        # =====================
+        chatwork_config = ChatworkConfig()
+        chatgpt_config = ChatgptConfig()
+
         # =====================
         # 1. Client 作成
         # =====================
-        chatwork_client = ChatWorkClient()
-        chatgpt_client = OpenAIClient()
+        chatwork_client = ChatWorkClient(chatwork_config)
+        chatgpt_client = OpenAIClient(chatgpt_config)
 
         # =====================
         # 2. Adapter 作成
