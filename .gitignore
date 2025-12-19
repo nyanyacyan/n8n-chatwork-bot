@@ -10,7 +10,9 @@ __pycache__/
 *.github
 *.devcontainer
 *.DS_Store
-*archive/
+archive/
+.github/
+.devcontainer/
 
 # Distribution / packaging
 .Python
