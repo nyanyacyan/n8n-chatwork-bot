@@ -9,7 +9,7 @@ from src.domain.ports.msg_reader_port import MsgReaderPort
 
 # 値
 from src.domain.values.chat_msg_content import ChatMsgContent
-from src.domain.values.room_id import RoomId
+from src.domain.values.chatwork_room_id import RoomId
 from domain.entities.chat.outgoing_message import OutgoingMessage
 from domain.entities.chat.received_message import ReceivedChatMessage
 

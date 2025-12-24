@@ -9,7 +9,7 @@ from src.application.usecases.create_prompt_from_chat_message_usecase import Cre
 from src.application.usecases.generate_response_from_prompt_usecase import GenerateResponseFromPromptUseCase
 from src.application.usecases.send_chat_message_usecase import SendChatMessageUseCase
 from src.application.dtos.get_new_msg import GetNewMsgRequest
-from src.domain.values.room_id import RoomId
+from src.domain.values.chatwork_room_id import RoomId
 from shared.logger import Logger
 
 

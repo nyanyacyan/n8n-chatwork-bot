@@ -14,12 +14,18 @@ from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
-class RoomId:
+class SlackChannelId:
     value: str
 
     # 不正な値を除外
     def __post_init__(self):
-        if not self.value:
+        # Noneチェック
+        if not self.value.strip():
             raise ValueError("値が送信先の指定がありません")
 
+        # 型チェック（ここが重要）
+        if not isinstance(self.value, str):
+            raise ValueError("channel_idは文字列型である必要があります")
+        
+        
 # **********************************************************************************

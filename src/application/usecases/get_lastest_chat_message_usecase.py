@@ -11,7 +11,7 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from shared.logger import Logger
-from domain.values.room_id import RoomId
+from src.domain.values.chatwork_room_id import RoomId
 from src.domain.ports.msg_reader_port import MsgReaderPort
 from src.application.dtos.get_new_msg import GetNewMsgRequest
 from src.domain.entities.chat.received_message import ReceivedChatMessage

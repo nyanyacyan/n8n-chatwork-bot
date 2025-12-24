@@ -5,7 +5,7 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from typing import Protocol
-from domain.values.room_id import RoomId
+from src.domain.values.chatwork_room_id import RoomId
 from domain.entities.chat.received_message import ReceivedChatMessage
 
 # ----------------------------------------------------------------------------------

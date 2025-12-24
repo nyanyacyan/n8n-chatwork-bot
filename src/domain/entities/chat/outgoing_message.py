@@ -5,7 +5,7 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from dataclasses import dataclass
-from domain.values.room_id import RoomId
+from src.domain.values.chatwork_room_id import RoomId
 from domain.values.chat_msg_content import ChatMsgContent
 
 

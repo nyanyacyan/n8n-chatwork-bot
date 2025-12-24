@@ -24,6 +24,12 @@ Infrastructure → Presentation → Application → **Domain（中心）**
 
 ## 🟣 Domain Layer（中心）
 
+### domain_values の 大事な考え方
+#### domain_values は「意味が安定していることが重要」。
+####  「意味が時間や環境で変わらない」ことが最重要。
+
+<br>
+
 ### 役割
 - ビジネスルールの表現
 - 意味のあるデータ（ValueObject）
