@@ -19,13 +19,13 @@ class SlackChannelId:
 
     # 不正な値を除外
     def __post_init__(self):
+
+        # 型チェック（ここが一番最初）
+        if not isinstance(self.value, str):
+            raise ValueError("channel_idは文字列型である必要があります")
+        
         # Noneチェック
         if not self.value.strip():
             raise ValueError("値が送信先の指定がありません")
 
-        # 型チェック（ここが重要）
-        if not isinstance(self.value, str):
-            raise ValueError("channel_idは文字列型である必要があります")
-        
-        
 # **********************************************************************************
