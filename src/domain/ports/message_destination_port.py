@@ -1,25 +1,16 @@
 # coding: utf-8
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-# 仕様：
+# 仕様：最新メッセージ取得能力を定義するポート
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
-from dataclasses import dataclass
-from src.domain.ports.message_destination_port import MessageDestination
-from src.domain.values.chat_msg_content import ChatMsgContent
-
-
+from typing import Protocol
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 
 
-@dataclass(frozen=True)
-class OutgoingMessage:
-    room_id: MessageDestination
-    content: ChatMsgContent
-
-    def length(self) -> int:
-        return self.content.length()
+class MessageDestination(Protocol):
+    pass
 
 # **********************************************************************************

@@ -23,3 +23,14 @@ Application → (契約) → Infrastructure
 
 
 ## ファイルは基本、その抽象化別にファイル生成する認識
+
+
+## 複数のvalue objectをまとめる際のフォーマット
+### クラスという箱を用意して同一のカテゴリでまとめる
+
+```
+@dataclass(frozen=True)
+class XXX:
+    pass
+
+```
