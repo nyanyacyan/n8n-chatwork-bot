@@ -36,6 +36,7 @@ class FMT:
 # import
 import pytest
 
+from ...  # 対象のValueObjectをインポート
 
 # ----------------------------------------------------------------------------------
 
@@ -52,7 +53,7 @@ def test_XXX_success():
     ]
 )
 
-def test_xxx_invalid(invalid):
+def test_XXX_invalid(invalid):
     with pytest.raises(ValueError):
         ...
 

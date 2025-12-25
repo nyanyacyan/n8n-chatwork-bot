@@ -14,13 +14,18 @@ from dataclasses import dataclass
 class PromptContent:
     value: str
 
+    MAX_LENGTH = 2000
+
     # 不正な値を除外
     def __post_init__(self):
-        if not self.value:
+        if not isinstance(self.value, str):
+            raise ValueError("文字列ではありません")
+        
+        if not self.value.strip():
             raise ValueError("プロンプトが空です")
 
-        if len(self.value) > 2000:
-            raise ValueError("Promptは2000文字以内にしてください")
+        if len(self.value) > self.MAX_LENGTH:
+            raise ValueError(f"Promptは{self.MAX_LENGTH}文字以内にしてください")
     
     def length(self) -> int:
         return len(self.value)

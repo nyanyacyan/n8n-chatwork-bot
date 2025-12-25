@@ -6,24 +6,24 @@
 # import
 import pytest
 
-from src.domain.values.slack_channel_id import SlackChannelId
-
-
+from src.domain.values.prompt_content import PromptContent
 # ----------------------------------------------------------------------------------
 
 
-def test_slack_channel_id_success():
-    msg = SlackChannelId("C12345678")
-    assert msg.value == "C12345678"
+def test_prompt_content_success():
+    prompt = PromptContent("これはテストのユーザープロンプトです")
+    assert prompt.value == "これはテストのユーザープロンプトです"
+    assert prompt.length() == 18
 
 # ----------------------------------------------------------------------------------
 
 @pytest.mark.parametrize(
     "invalid",
-    [None, 123, "", "   "],
+    ["", "   ", None, 123, "a" * 2001],
 )
-def test_slack_channel_id_invalid(invalid):
+
+def test_prompt_content_invalid(invalid):
     with pytest.raises(ValueError):
-        SlackChannelId(invalid)
+        PromptContent(invalid)
 
 # **********************************************************************************
