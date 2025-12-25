@@ -16,7 +16,12 @@ class ReplyContent:
 
     # 不正な値を除外
     def __post_init__(self):
-        if not self.value:
+        # 型チェック
+        if not isinstance(self.value, str):
+            raise ValueError("文字列ではありません")
+        
+        # Noneチェック
+        if not self.value.strip():
             raise ValueError("送信メッセージの値がありません")
 
 # **********************************************************************************

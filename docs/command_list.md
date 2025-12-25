@@ -36,21 +36,19 @@ class FMT:
 # import
 import pytest
 
-from ...  # 対象のValueObjectをインポート
+from src.domain.values import XXX
 
 # ----------------------------------------------------------------------------------
 
 
 def test_XXX_success():
-    # assert
     ...
 
 # ----------------------------------------------------------------------------------
 
 @pytest.mark.parametrize(
     "invalid",
-    [ ...
-    ]
+    [ ... ],
 )
 
 def test_XXX_invalid(invalid):

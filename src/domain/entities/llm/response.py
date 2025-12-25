@@ -5,7 +5,7 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from dataclasses import dataclass
-from domain.values.response_content import ResponseContent
+from archive.response_content import ResponseContent
 
 
 # ----------------------------------------------------------------------------------
