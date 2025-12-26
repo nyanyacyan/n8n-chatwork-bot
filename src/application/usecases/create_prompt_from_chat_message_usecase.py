@@ -7,9 +7,7 @@
 from src.domain.entities.chat.outgoing_message import OutgoingMessage
 from src.domain.entities.llm.prompt import Prompt
 from src.domain.services.chat_llm_domain_service import ChatLlmDomainService
-from shared.logger import Logger
-
-
+from src.shared.logger import Logger
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************

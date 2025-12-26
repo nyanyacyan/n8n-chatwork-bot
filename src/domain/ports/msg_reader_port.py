@@ -5,15 +5,15 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from typing import Protocol
-from src.domain.values.chatwork_room_id import RoomId
-from src.domain.entities.chat.chatwork_received_message import ReceivedChatMessage
+from src.domain.values.chatwork_room_id import ChatworkRoomId
+from src.domain.entities.chat.chatwork_received_message import ChatworkReceivedMessage
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 
 
 class MsgReaderPort(Protocol):
-    def execute(self,room_id: RoomId) -> list[ReceivedChatMessage]:
+    def execute(self,room_id: ChatworkRoomId) -> list[ChatworkReceivedMessage]:
         ...
 
 # **********************************************************************************

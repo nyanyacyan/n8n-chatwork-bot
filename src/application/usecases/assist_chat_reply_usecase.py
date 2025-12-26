@@ -9,8 +9,8 @@ from src.application.usecases.create_prompt_from_chat_message_usecase import Cre
 from src.application.usecases.generate_response_from_prompt_usecase import GenerateResponseFromPromptUseCase
 from src.application.usecases.send_chat_message_usecase import SendChatMessageUseCase
 from src.application.dtos.get_new_msg import GetNewMsgRequest
-from src.domain.values.chatwork_room_id import RoomId
-from shared.logger import Logger
+from src.domain.values.chatwork_room_id import ChatworkRoomId
+from src.shared.logger import Logger
 
 
 # ----------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ class AssistChatReplyUseCase:
 # ----------------------------------------------------------------------------------
 
     def execute(self, req: GetNewMsgRequest) -> None:
-        self.logger.info("Reply flow started")
+        self.logger.debug("返信処理を開始")
 
         # ① 最新メッセージ取得
         message = self.get_latest_msg_uc.execute(req)
@@ -55,6 +55,6 @@ class AssistChatReplyUseCase:
             room_id=message.room_id
         )
 
-        self.logger.info("返信処理が完了")
+        self.logger.debug("返信処理が完了")
 
 # **********************************************************************************

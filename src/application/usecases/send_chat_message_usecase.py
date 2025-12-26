@@ -7,9 +7,9 @@
 from src.domain.entities.llm.response import Response
 from src.domain.entities.chat.outgoing_message import OutgoingMessage
 from src.domain.values.chat_msg_content import ChatMsgContent
-from src.domain.values.chatwork_room_id import RoomId
+from src.domain.values.chatwork_room_id import ChatworkRoomId
 from src.domain.ports.msg_sender_port import MsgSenderPort
-from shared.logger import Logger
+from src.shared.logger import Logger
 
 
 # ----------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ class SendChatMessageUseCase:
 # ----------------------------------------------------------------------------------
 
 
-    def execute(self, response: Response, room_id: RoomId) -> None:
+    def execute(self, response: Response, room_id: ChatworkRoomId) -> None:
         self.logger.info("Chat メッセージ送信処理を開始")
 
         # Response → ChatMessage へ変換

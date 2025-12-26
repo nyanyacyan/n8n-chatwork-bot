@@ -8,8 +8,6 @@ from dataclasses import dataclass
 from src.domain.ports.message_destination_port import MessageDestination
 from src.domain.values.chat_msg_content import ChatMsgContent
 
-
-
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 

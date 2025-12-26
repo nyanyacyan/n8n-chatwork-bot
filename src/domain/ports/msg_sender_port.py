@@ -5,7 +5,7 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from typing import Protocol
-from domain.entities.chat.outgoing_message import OutgoingMessage
+from src.domain.entities.chat.outgoing_message import OutgoingMessage
 
 
 # ----------------------------------------------------------------------------------

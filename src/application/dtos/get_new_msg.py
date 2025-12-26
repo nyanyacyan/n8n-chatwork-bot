@@ -14,6 +14,5 @@ from dataclasses import dataclass
 @dataclass
 class GetNewMsgRequest:
     room_id: str
-    msg: str
 
 # **********************************************************************************
