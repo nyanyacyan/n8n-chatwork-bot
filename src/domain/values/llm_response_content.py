@@ -2,21 +2,24 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # 仕様：
 
-# valueObjectは具体的なファイル名、機能をもたせることでファイル名を少し曖昧にする
-
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from dataclasses import dataclass
-from src.domain.values.prompt_content import PromptContent
+
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 
+
 @dataclass(frozen=True)
-class Prompt:
-    content: PromptContent
+class LLMResponseContent:
+    value: str
+
+    def __post_init__(self):
+        if not self.value:
+            raise ValueError("Responseが空です")
 
     def length(self) -> int:
-        return self.content.length()
+        return len(self.value)
 
 # **********************************************************************************

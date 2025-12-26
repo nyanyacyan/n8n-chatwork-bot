@@ -1,21 +1,23 @@
 # coding: utf-8
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-# 仕様：LLMにおけるResponseを定義
-
+# 仕様：
+# 正常系のみでOK
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
-from dataclasses import dataclass
+
+from src.domain.entities.llm.response import Response
 from src.domain.values.llm_response_content import LLMResponseContent
 
+
 # ----------------------------------------------------------------------------------
-# **********************************************************************************
 
 
-@dataclass(frozen=True)
-class Response:
-    content: LLMResponseContent
+def test_response_success():
+    content = LLMResponseContent("hello response")
 
-    def length(self) -> int:
-        return self.content.length()
+    response = Response(content=content)
+
+    assert response.content == content
+    assert response.length() == len("hello response")
 
 # **********************************************************************************
