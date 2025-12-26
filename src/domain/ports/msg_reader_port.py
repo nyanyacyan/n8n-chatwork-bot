@@ -6,7 +6,7 @@
 # import
 from typing import Protocol
 from src.domain.values.chatwork_room_id import RoomId
-from domain.entities.chat.received_message import ReceivedChatMessage
+from src.domain.entities.chat.chatwork_received_message import ReceivedChatMessage
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
