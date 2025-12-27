@@ -14,7 +14,7 @@ from src.shared.logger import Logger
 # **********************************************************************************
 
 
-class GenerateResponseFromPromptUseCase:
+class RequestLlmResponseUseCase:
     def __init__(self, generator: TextGeneratorPort):
         self.generator = generator
 

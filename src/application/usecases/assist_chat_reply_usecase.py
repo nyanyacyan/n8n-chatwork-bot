@@ -6,7 +6,7 @@
 # import
 from src.application.usecases.get_lastest_chat_message_usecase import GetLatestChatMessageUseCase
 from src.application.usecases.create_prompt_from_chat_message_usecase import CreatePromptFromChatMessageUseCase
-from src.application.usecases.generate_response_from_prompt_usecase import GenerateResponseFromPromptUseCase
+from src.application.usecases.request_llm_response_usecase import RequestLlmResponseUseCase
 from src.application.usecases.send_chat_message_usecase import SendChatMessageUseCase
 from src.application.dtos.get_new_msg import GetNewMsgRequest
 from src.domain.values.chatwork_room_id import ChatworkRoomId
@@ -22,7 +22,7 @@ class AssistChatReplyUseCase:
         self,
         get_latest_msg_uc: GetLatestChatMessageUseCase,
         create_prompt_uc: CreatePromptFromChatMessageUseCase,
-        generate_response_uc: GenerateResponseFromPromptUseCase,
+        generate_response_uc: RequestLlmResponseUseCase,
         send_chat_msg_uc: SendChatMessageUseCase,
     ):
         # logger

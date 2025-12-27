@@ -35,7 +35,7 @@ from src.infrastructure.chatgpt.adapter import ChatGPTTextGeneratorAdapter
 # -----------------------
 from src.application.usecases.get_lastest_chat_message_usecase import GetLatestChatMessageUseCase
 from src.application.usecases.create_prompt_from_chat_message_usecase import CreatePromptFromChatMessageUseCase
-from src.application.usecases.generate_response_from_prompt_usecase import GenerateResponseFromPromptUseCase
+from src.application.usecases.request_llm_response_usecase import RequestLlmResponseUseCase
 from src.application.usecases.send_chat_message_usecase import SendChatMessageUseCase
 
 # Orchestration
@@ -77,7 +77,7 @@ def main():
         # =====================
         get_latest_msg_uc = GetLatestChatMessageUseCase(msg_reader)
         create_prompt_uc = CreatePromptFromChatMessageUseCase()
-        generate_reply_uc = GenerateResponseFromPromptUseCase(text_generator)
+        generate_reply_uc = RequestLlmResponseUseCase(text_generator)
         send_reply_uc = SendChatMessageUseCase(msg_sender)
 
         # =====================

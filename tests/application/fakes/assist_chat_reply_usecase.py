@@ -11,7 +11,8 @@ from src.domain.entities.llm.response import Response
 from src.domain.values.chatwork_room_id import ChatworkRoomId
 from src.domain.values.chat_msg_content import ChatMsgContent
 from src.domain.values.prompt_content import PromptContent
-from src.domain.values.llm_response_content import LLMResponseContent
+
+from src.domain.ports.text_generator_port import TextGeneratorPort
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
@@ -44,15 +45,16 @@ class FakeCreatePromptFromChatMessageUseCase:
 # **********************************************************************************
 
 
-class FakeGenerateResponseFromPromptUseCase:
-    def __init__(self):
+class FakeRequestLlmResponseUseCase:
+    def __init__(self, generator: TextGeneratorPort):
+        self.generator = generator
         self.called = False  # 処理が呼ばれたか確認
         self.received_prompt = None
 
     def execute(self, prompt):
         self.called = True
         self.received_prompt = prompt
-        return Response(LLMResponseContent("dummy response"))
+        return self.generator.execute(prompt)
 
 # **********************************************************************************
 
@@ -68,4 +70,18 @@ class FakeSendChatMessageUseCase:
         self.received_response = response
         self.received_room_id = room_id
         
+# **********************************************************************************
+
+
+class FakeTextGenerator:
+    def __init__(self, response: Response):
+        self.response = response
+        self.called = False
+        self.received_prompt = None
+
+    def execute(self, prompt: Prompt) -> Response:
+        self.called = True
+        self.received_prompt = prompt
+        return self.response
+
 # **********************************************************************************

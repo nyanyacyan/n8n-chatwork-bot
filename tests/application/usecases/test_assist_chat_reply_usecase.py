@@ -4,14 +4,13 @@
 # 検証の順序 > 型チェック > Noneチェック > 値チェック
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
-import pytest
 from src.application.usecases.assist_chat_reply_usecase import AssistChatReplyUseCase
 from src.application.dtos.get_new_msg import GetNewMsgRequest
 
 from tests.application.fakes.assist_chat_reply_usecase import (
     FakeGetLatestChatMessageUseCase,
     FakeCreatePromptFromChatMessageUseCase,
-    FakeGenerateResponseFromPromptUseCase,
+    FakeRequestLlmResponseUseCase,
     FakeSendChatMessageUseCase,
 )
 
@@ -24,7 +23,7 @@ def test_assist_chat_reply_usecase_flow_success():
     # --------------------
     fake_get_latest = FakeGetLatestChatMessageUseCase()
     fake_create_prompt = FakeCreatePromptFromChatMessageUseCase()
-    fake_generate_response = FakeGenerateResponseFromPromptUseCase()
+    fake_generate_response = FakeRequestLlmResponseUseCase()
     fake_send_chat = FakeSendChatMessageUseCase()
 
     usecase = AssistChatReplyUseCase(
