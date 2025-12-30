@@ -12,8 +12,8 @@
 # import
 from src.shared.logger import Logger
 from src.domain.values.chatwork_room_id import ChatworkRoomId
-from src.domain.ports.msg_reader_port import MsgReaderPort
 from src.application.dtos.get_new_msg import GetNewMsgRequest
+from src.domain.ports.msg_reader_port import MsgReaderPort
 from src.domain.entities.chat.chatwork_received_message import ChatworkReceivedMessage
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
