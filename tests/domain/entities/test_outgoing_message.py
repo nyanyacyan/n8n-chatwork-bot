@@ -1,6 +1,9 @@
 # coding: utf-8
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # 仕様：
+# OutgoingMessage が ChatworkRoomId / SlackChannelId のどちらも保持でき、
+# content と length が期待通りであることを確認する。
+# 確認方法: parametrize で両種の destination を生成し、room_id と length を assert。
 # 正常系のみでOK
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
