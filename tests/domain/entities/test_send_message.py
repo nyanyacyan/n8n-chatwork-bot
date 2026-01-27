@@ -1,7 +1,7 @@
 # coding: utf-8
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # 仕様：
-# OutgoingMessage が ChatworkRoomId / SlackChannelId のどちらも保持でき、
+# SendMessage が ChatworkRoomId / SlackChannelId のどちらも保持でき、
 # content と length が期待通りであることを確認する。
 # 確認方法: parametrize で両種の destination を生成し、room_id と length を assert。
 # 正常系のみでOK
@@ -9,7 +9,7 @@
 # import
 import pytest
 
-from src.domain.entities.chat.outgoing_message import OutgoingMessage
+from src.domain.entities.chat.send_message import SendMessage
 from src.domain.values.chatwork_room_id import ChatworkRoomId
 from src.domain.values.slack_channel_id import SlackChannelId
 from src.domain.values.chat_msg_content import ChatMsgContent
@@ -24,10 +24,10 @@ from src.domain.values.chat_msg_content import ChatMsgContent
     ],
 )
 
-def test_outgoing_message_accepts_any_destination(destination):
+def test_send_message_accepts_any_destination(destination):
     content = ChatMsgContent("hello")
 
-    msg = OutgoingMessage(
+    msg = SendMessage(
         room_id=destination,
         content=content,
     )

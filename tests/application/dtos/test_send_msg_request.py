@@ -1,19 +1,19 @@
 # coding: utf-8
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-# 仕様：メッセージ送信能力を定義するポート
-
+# 仕様：
+# SendMsgRequest が room_id と msg を保持できることを確認する。
+# 確認方法: 生成後に room_id と msg を assert。
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
-from typing import Protocol
-from src.domain.entities.chat.send_message import SendMessage
 
+from src.application.dtos.send_msg_request import SendMsgRequest
 
 # ----------------------------------------------------------------------------------
-# **********************************************************************************
 
 
-class MsgSenderPort(Protocol):
-    def execute(self, msg: SendMessage) -> None:
-        ...
+def test_send_msg_request_success():
+    req = SendMsgRequest(room_id="123", msg="hello")
+    assert req.room_id == "123"
+    assert req.msg == "hello"
 
 # **********************************************************************************

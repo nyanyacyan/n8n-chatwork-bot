@@ -11,7 +11,7 @@
 from openai import OpenAI
 
 # ChatGPT関連
-from infrastructure.chatgpt.config import ChatgptConfig
+from src.infrastructure.chatgpt.config import ChatgptConfig
 
 # ----------------------------------------------------------------------------------
 # **********************************************************************************

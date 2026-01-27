@@ -11,7 +11,7 @@
 
 # Domain
 from src.domain.ports.text_generator_port import TextGeneratorPort
-from domain.entities.llm.response import Response
+from src.domain.entities.llm.response import Response
 from src.domain.entities.llm.prompt import Prompt
 from src.domain.values.reply_content import ReplyContent
 

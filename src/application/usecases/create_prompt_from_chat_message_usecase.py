@@ -4,7 +4,7 @@
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
-from src.domain.entities.chat.outgoing_message import OutgoingMessage
+from src.domain.entities.chat.send_message import SendMessage
 from src.application.llm.prompt_templates import REPLY_PROMPT_TEMPLATE
 from src.domain.entities.llm.prompt import Prompt
 from src.domain.values.prompt_content import PromptContent
@@ -24,7 +24,7 @@ class CreatePromptFromChatMessageUseCase:
 # ----------------------------------------------------------------------------------
 
 
-    def execute(self, msg: OutgoingMessage) -> Prompt:
+    def execute(self, msg: SendMessage) -> Prompt:
         self.logger.info("Prompt 作成処理を開始")
 
         new_msg = msg.content.value

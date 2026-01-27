@@ -36,7 +36,7 @@ assist_chat_reply_usecase.py
 
 種類	suffix	例
 UseCase	UseCase	AssistChatReplyUseCase
-Entity	なし（名詞）	OutgoingMessage
+Entity	なし（名詞）	SendMessage
 Value	Content / Id	ChatMsgContent
 DomainService	DomainService	ChatLlmDomainService
 Port	Port	TextGeneratorPort
@@ -98,7 +98,7 @@ get_latest_chat_message_usecase.py
 ```
 例
 ```
-OutgoingMessage
+SendMessage
 ChatworkReceivedMessage
 SlackReceivedMessage
 Prompt

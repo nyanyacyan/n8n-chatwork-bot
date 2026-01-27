@@ -14,7 +14,7 @@ from src.domain.values.llm_response_content import LLMResponseContent
 from src.domain.services.chat_llm_domain_service import ChatLlmDomainService
 from src.domain.entities.chat.chatwork_received_message import ChatworkRoomId
 from src.domain.entities.llm.prompt import Prompt
-from src.domain.entities.chat.outgoing_message import OutgoingMessage
+from src.domain.entities.chat.send_message import SendMessage
 from src.domain.values.chat_msg_content import ChatMsgContent
 
 # ----------------------------------------------------------------------------------
@@ -23,7 +23,7 @@ from src.domain.values.chat_msg_content import ChatMsgContent
 def test_create_prompt_success():
     room_id = ChatworkRoomId(123)
     content = ChatMsgContent("hello")
-    outgoing = OutgoingMessage(room_id=room_id, content=content)
+    outgoing = SendMessage(room_id=room_id, content=content)
 
     prompt = ChatLlmDomainService.create_prompt(outgoing)
 

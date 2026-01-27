@@ -5,7 +5,7 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from src.domain.entities.llm.response import Response
-from src.domain.entities.chat.outgoing_message import OutgoingMessage
+from src.domain.entities.chat.send_message import SendMessage
 from src.domain.values.chat_msg_content import ChatMsgContent
 from src.domain.values.chatwork_room_id import ChatworkRoomId
 from src.domain.ports.msg_sender_port import MsgSenderPort
@@ -32,7 +32,7 @@ class SendChatMessageUseCase:
         self.logger.info("Chat メッセージ送信処理を開始")
 
         # Response → ChatMessage へ変換
-        msg = OutgoingMessage(
+        msg = SendMessage(
             room_id=room_id,
             content=ChatMsgContent(response.content.value)
         )

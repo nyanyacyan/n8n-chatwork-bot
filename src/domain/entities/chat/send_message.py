@@ -13,7 +13,7 @@ from src.domain.values.chat_msg_content import ChatMsgContent
 
 
 @dataclass(frozen=True)
-class OutgoingMessage:
+class SendMessage:
     room_id: MessageDestination
     content: ChatMsgContent
 

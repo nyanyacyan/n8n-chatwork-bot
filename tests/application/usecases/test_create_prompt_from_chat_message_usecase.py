@@ -1,14 +1,14 @@
 # coding: utf-8
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # 仕様：
-# CreatePromptFromChatMessageUseCase が OutgoingMessage から Prompt を生成し、
+# CreatePromptFromChatMessageUseCase が SendMessage から Prompt を生成し、
 # Prompt の内容が空でないことを確認する。
 # 確認方法: execute の戻り値が Prompt 型であることと content.value が空でないことを assert。
 # 検証の順序 > 型チェック > Noneチェック > 値チェック
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 from src.application.usecases.create_prompt_from_chat_message_usecase import CreatePromptFromChatMessageUseCase
-from src.domain.entities.chat.outgoing_message import OutgoingMessage
+from src.domain.entities.chat.send_message import SendMessage
 from src.domain.values.chat_msg_content import ChatMsgContent
 from src.domain.values.chatwork_room_id import ChatworkRoomId
 from src.domain.entities.llm.prompt import Prompt
@@ -22,7 +22,7 @@ def test_create_prompt_from_chat_message_usecase_success():
     # --------------------
     usecase = CreatePromptFromChatMessageUseCase()
 
-    msg = OutgoingMessage(
+    msg = SendMessage(
         room_id=ChatworkRoomId(123),
         content=ChatMsgContent("こんにちは"),
     )

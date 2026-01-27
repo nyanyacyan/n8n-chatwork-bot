@@ -19,7 +19,7 @@ class XXXDomainService:
 # 2つ以上あるのが望ましい
 
     @staticmethod
-    def is_xxx(content: OutgoingMessage) -> bool:
+    def is_xxx(content: SendMessage) -> bool:
         ...条件分岐処理...
 
 

@@ -4,7 +4,7 @@
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from .model_enum import ChatgptModel
 
 # ----------------------------------------------------------------------------------
@@ -16,8 +16,7 @@ class ChatgptConfig(BaseSettings):
     base_url: str = "https://api.chatwork.com/v2"
     model: ChatgptModel = ChatgptModel.standard
 
-
-    class Config:
-        # envファイルの中から検索する
-        env_file = ".env.chatgpt"
-        env_file_encoding = "utf-8"
+    model_config = SettingsConfigDict(
+        env_file=".env.chatgpt",
+        env_file_encoding="utf-8",
+    )

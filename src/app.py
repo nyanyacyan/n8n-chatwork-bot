@@ -39,7 +39,7 @@ from src.application.usecases.request_llm_response_usecase import RequestLlmResp
 from src.application.usecases.send_chat_message_usecase import SendChatMessageUseCase
 
 # Orchestration
-from application.usecases.assist_chat_reply_usecase import AssistChatReplyUseCase
+from src.application.usecases.assist_chat_reply_usecase import AssistChatReplyUseCase
 
 
 # ----------------------------------------------------------------------------------
@@ -105,7 +105,6 @@ if __name__ == "__main__":
     main()
 
 # ----------------------------------------------------------------------------------
-
 
 
 
