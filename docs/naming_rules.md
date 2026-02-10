@@ -90,6 +90,47 @@ get_latest_chat_message_usecase.py
 
 ---
 
+### Application / DTO（Request / Response）
+
+役割
+- Presentation から受け取る入力、または返却する出力の型を表す
+- UseCase の入出力境界を明確にする
+
+命名ルール
+```
+{動詞}{対象}Request
+{動詞}{対象}Response
+```
+例
+```
+GenerateReplyRequest
+GetNewMsgRequest
+SendChatMessageRequest
+```
+
+ファイル名ルール
+```
+{動詞}_{対象}_request.py
+{動詞}_{対象}_response.py
+```
+例
+```
+generate_reply_request.py
+get_new_msg_request.py
+send_chat_message_request.py
+```
+
+禁止（衝突しやすい）
+```
+send_msg_request.py + class SendMsgRequest を複数用途で使い回す
+```
+
+理由
+- 同じクラス名を複数DTOで使うと、import時に別名（as）が必要になり可読性が落ちる
+- 一意な名前にすると、型名だけでユースケースが分かる
+
+---
+
 ### Domain / Entity
 
 命名ルール
@@ -179,6 +220,42 @@ MsgSenderPort
 ChatGptAdapter
 ChatworkAdapter
 SlackAdapter
+```
+
+ファイル名ルール（必須）
+```
+{技術名}_adapter.py
+```
+例
+```
+chatgpt_adapter.py
+chatwork_adapter.py
+slack_adapter.py
+```
+
+禁止（曖昧名）
+```
+adapter.py
+```
+
+理由
+- `adapter.py` は同名が増えやすく、検索・import・レビューで判別しづらい
+- 技術名を先頭に入れると、どの外部接続の実装か即判別できる
+- 将来 adapter が増えても命名衝突しない
+
+Adapter テストファイル名ルール（必須）
+```
+test_{技術名}_adapter.py
+```
+例
+```
+test_chatgpt_adapter.py
+test_chatwork_adapter.py
+```
+
+禁止（衝突しやすい）
+```
+test_adapter.py
 ```
 
 ---

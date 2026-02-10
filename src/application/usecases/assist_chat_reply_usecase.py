@@ -4,7 +4,7 @@
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
-from src.application.usecases.get_lastest_chat_message_usecase import GetLatestChatMessageUseCase
+from src.application.usecases.get_latest_chat_message_usecase import GetLatestChatMessageUseCase
 from src.application.usecases.create_prompt_from_chat_message_usecase import CreatePromptFromChatMessageUseCase
 from src.application.usecases.request_llm_response_usecase import RequestLlmResponseUseCase
 from src.application.usecases.send_chat_message_usecase import SendChatMessageUseCase

@@ -19,7 +19,7 @@ class ChatLlmDomainService:
 
     @staticmethod
     def create_prompt(content: SendMessage) -> Prompt:
-        return Prompt(PromptContent(content))
+        return Prompt(PromptContent(content.content.value))
 
 # ----------------------------------------------------------------------------------
 

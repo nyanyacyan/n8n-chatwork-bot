@@ -24,16 +24,16 @@ from src.infrastructure.chatgpt.client import OpenAIClient
 # -----------------------
 # Infrastructure (Adapter)
 # -----------------------
-from src.infrastructure.chatwork.adapter import (
+from src.infrastructure.chatwork.chatwork_adapter import (
     ChatworkGetMessagesAdapter,
     ChatworkSendMsgAdapter,
 )
-from src.infrastructure.chatgpt.adapter import ChatGPTTextGeneratorAdapter
+from src.infrastructure.chatgpt.chatgpt_adapter import ChatGPTTextGeneratorAdapter
 
 # -----------------------
 # Application (UseCases)
 # -----------------------
-from src.application.usecases.get_lastest_chat_message_usecase import GetLatestChatMessageUseCase
+from src.application.usecases.get_latest_chat_message_usecase import GetLatestChatMessageUseCase
 from src.application.usecases.create_prompt_from_chat_message_usecase import CreatePromptFromChatMessageUseCase
 from src.application.usecases.request_llm_response_usecase import RequestLlmResponseUseCase
 from src.application.usecases.send_chat_message_usecase import SendChatMessageUseCase

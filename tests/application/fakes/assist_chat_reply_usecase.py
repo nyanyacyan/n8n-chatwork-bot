@@ -11,6 +11,7 @@ from src.domain.entities.llm.response import Response
 from src.domain.values.chatwork_room_id import ChatworkRoomId
 from src.domain.values.chat_msg_content import ChatMsgContent
 from src.domain.values.prompt_content import PromptContent
+from src.domain.values.llm_response_content import LLMResponseContent
 
 from src.domain.ports.text_generator_port import TextGeneratorPort
 
@@ -46,7 +47,7 @@ class FakeCreatePromptFromChatMessageUseCase:
 
 
 class FakeRequestLlmResponseUseCase:
-    def __init__(self, generator: TextGeneratorPort):
+    def __init__(self, generator: TextGeneratorPort | None = None):
         self.generator = generator
         self.called = False  # 処理が呼ばれたか確認
         self.received_prompt = None
@@ -54,6 +55,9 @@ class FakeRequestLlmResponseUseCase:
     def execute(self, prompt):
         self.called = True
         self.received_prompt = prompt
+        if self.generator is None:
+            return Response(content=LLMResponseContent("dummy response"))
+
         return self.generator.execute(prompt)
 
 # **********************************************************************************

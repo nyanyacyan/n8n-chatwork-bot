@@ -10,7 +10,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"
 from fastapi import FastAPI, Request
 from src.base.chatwork import ChatworkClient
 from src.base.chatgpt import ChatgptClient
-from src.utils.logger import Logger
+from src.shared.logger import Logger
 
 # Schema
 from data.schema.api_response import StandardResponse

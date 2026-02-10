@@ -11,7 +11,7 @@ from dataclasses import dataclass
 # **********************************************************************************
 
 @dataclass
-class SendMsgRequest:
+class GenerateReplyRequest:
     room_id: str
     message: str
 

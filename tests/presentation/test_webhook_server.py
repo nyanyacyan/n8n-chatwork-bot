@@ -16,16 +16,6 @@ from pydantic import BaseModel
 # ----------------------------------------------------------------------------------
 
 
-class FakeLogger:
-    def debug(self, *args, **kwargs):
-        return None
-
-
-class FakeLoggerProvider:
-    def getLogger(self):
-        return FakeLogger()
-
-
 class FakeChatworkClient:
     def flow_one(self, data):
         return {"ok": True, "flow": "one", "data": data}
@@ -48,19 +38,15 @@ def _inject_fake_modules():
     # Create minimal module tree for missing imports
     modules = {}
 
-    modules["src"] = types.ModuleType("src")
     modules["src.base"] = types.ModuleType("src.base")
     modules["src.base.chatwork"] = types.ModuleType("src.base.chatwork")
     modules["src.base.chatgpt"] = types.ModuleType("src.base.chatgpt")
-    modules["src.utils"] = types.ModuleType("src.utils")
-    modules["src.utils.logger"] = types.ModuleType("src.utils.logger")
     modules["data"] = types.ModuleType("data")
     modules["data.schema"] = types.ModuleType("data.schema")
     modules["data.schema.api_response"] = types.ModuleType("data.schema.api_response")
 
     modules["src.base.chatwork"].ChatworkClient = FakeChatworkClient
     modules["src.base.chatgpt"].ChatgptClient = FakeChatgptClient
-    modules["src.utils.logger"].Logger = FakeLoggerProvider
     modules["data.schema.api_response"].StandardResponse = StandardResponse
 
     sys.modules.update(modules)

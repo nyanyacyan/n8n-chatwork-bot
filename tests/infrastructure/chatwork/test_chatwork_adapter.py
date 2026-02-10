@@ -7,7 +7,7 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 
-from src.infrastructure.chatwork.adapter import ChatworkSendMsgAdapter, ChatworkGetMessagesAdapter
+from src.infrastructure.chatwork.chatwork_adapter import ChatworkSendMsgAdapter, ChatworkGetMessagesAdapter
 from src.domain.entities.chat.send_message import SendMessage
 from src.domain.values.chatwork_room_id import ChatworkRoomId
 from src.domain.values.chat_msg_content import ChatMsgContent

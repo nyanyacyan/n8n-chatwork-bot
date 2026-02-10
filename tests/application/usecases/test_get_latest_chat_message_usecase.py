@@ -10,7 +10,7 @@
 # import
 import pytest
 
-from src.application.usecases.get_lastest_chat_message_usecase import GetLatestChatMessageUseCase
+from src.application.usecases.get_latest_chat_message_usecase import GetLatestChatMessageUseCase
 from src.application.dtos.get_new_msg import GetNewMsgRequest
 from src.domain.values.chatwork_room_id import ChatworkRoomId
 from src.domain.values.chat_msg_content import ChatMsgContent

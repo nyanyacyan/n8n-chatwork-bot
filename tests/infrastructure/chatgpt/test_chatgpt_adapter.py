@@ -7,7 +7,7 @@
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
 
-from src.infrastructure.chatgpt.adapter import ChatGPTTextGeneratorAdapter
+from src.infrastructure.chatgpt.chatgpt_adapter import ChatGPTTextGeneratorAdapter
 from src.domain.entities.llm.prompt import Prompt
 from src.domain.values.prompt_content import PromptContent
 from src.domain.entities.llm.response import Response
