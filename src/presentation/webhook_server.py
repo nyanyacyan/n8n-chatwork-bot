@@ -1,75 +1,54 @@
 # coding: utf-8
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+# 仕様：
+# WebhookServer はルーティングと依存注入のみを担当する
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # import
-import sys, os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
-
-
 from fastapi import FastAPI, Request
-from src.base.chatwork import ChatworkClient
-from src.base.chatgpt import ChatgptClient
+
+from src.application.usecases.assist_chat_reply_usecase import AssistChatReplyUseCase
+from src.presentation.controllers.chatwork_webhook_controller import ChatworkWebhookController
 from src.shared.logger import Logger
 
-# Schema
-from data.schema.api_response import StandardResponse
-
-# flow
-
-
 # ----------------------------------------------------------------------------------
 # **********************************************************************************
 
-
-# ----------------------------------------------------------------------------------
 
 class WebhookServer:
-    def __init__(self):
-        # logger
-        self.getLogger = Logger()
-        self.logger = self.getLogger.getLogger()
-        
-        # FastAPI アプリケーションのインスタンス化
+    def __init__(self, reply_usecase: AssistChatReplyUseCase):
+        if reply_usecase is None:
+            raise ValueError("reply_usecase は必須です")
+
+        logger_setup = Logger()
+        self.logger = logger_setup.getLogger()
+
         self.app = FastAPI()
-        
-        # インスタンス
-        self.chatwork_client = ChatworkClient()
-        self.chatgpt_client = ChatgptClient()
-        
-        # flow
-        
+        self.chatwork_controller = ChatworkWebhookController(
+            reply_usecase=reply_usecase,
+            logger=self.logger,
+        )
         self._add_routes()
-        
+
 # ----------------------------------------------------------------------------------
-# ChatworkのWebhook受信ルートの追加メソッド
+# Chatwork Webhook ルート追加
 
     def _add_routes(self):
-        @self.app.post("/webhook/chatwork/one", response_model=StandardResponse)
+        @self.app.post("/webhook/chatwork")
         async def chatwork_webhook(request: Request):
-            data = await request.json()
-            self.logger.debug(f"Webhook 受信データ: {data}")
-            
-            #TODO ChatWork からのメッセージIDを取得
-            return self.chatwork_client.flow_one(data)
+            return await self.chatwork_controller.chatwork_webhook(request)
 
-# ----------------------------------------------------------------------------------
-# slack_webhook
+        # 互換性のため旧ルートを残す
+        @self.app.post("/webhook/chatwork/one")
+        async def chatwork_webhook_one(request: Request):
+            return await chatwork_webhook(request)
 
-        @self.app.post("/webhook/chatwork/second", response_model=StandardResponse)
-        async def slack_webhook(request: Request):
-            data = await request.json()
-            self.logger.debug(f"Webhook 受信データ: {data}")
-            
-            #TODO ChatWork からのメッセージIDを取得
-            return self.chatwork_client.flow_second(data)
-
-# ----------------------------------------------------------------------------------
+        @self.app.post("/webhook/chatwork/second")
+        async def chatwork_webhook_second(request: Request):
+            return await chatwork_webhook(request)
 
 # **********************************************************************************
 
 
-if __name__ == "__main__":
-    pass
-
-# ----------------------------------------------------------------------------------
+def create_app(reply_usecase: AssistChatReplyUseCase) -> FastAPI:
+    return WebhookServer(reply_usecase=reply_usecase).app
